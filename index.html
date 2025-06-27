@@ -65,11 +65,12 @@
       color: #5a3e36;
       font-weight: 700;
     }
-    .articles small {
-      display: block;
+    .articles ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .articles li {
       margin-bottom: 1rem;
-      color: #888;
-      font-style: italic;
     }
     footer {
       background-color: #7b5e57;
@@ -96,29 +97,26 @@
   </header>
 
   <nav>
-    <a href="#home">首頁</a>
+    <a href="index.html">首頁</a>
     <a href="#articles">文章分享</a>
-    <a href="cases.html">成功案例</a>
+    <a href="case.html">成功案例</a>
     <a href="#consult">開始諮詢</a>
   </nav>
 
   <div class="container">
-    <div class="articles">
-     <div class="container">
-  <div class="articles">
-    <h2>最新文章</h2>
-    <div><a href="articles/article1.html"/a></div>
-    <div><a href="articles/article2.html"/a></div>
-    <div><a href="articles/article3.html"/a></div>
-    <div><a href="articles/article4.html"</a></div>
-  </div>
-</div>
-
-
+    <div class="articles" id="articles">
+      <h2>最新文章</h2>
+      <ul>
+        <li><a href="articles/article1.html">監護權爭奪戰：對方拒絕讓你看孩子？</a></li>
+        <li><a href="articles/article2.html">如何聲請暫時處分？完整流程教學</a></li>
+        <li><a href="articles/article3.html">家事事件常見 Q&A</a></li>
+        <li><a href="articles/article4.html">離婚律師告訴你必備的證據</a></li>
+      </ul>
+    </div>
   </div>
 
   <footer>
-    &copy; 2025 安心說法｜
+    &copy; 2025 安心說法｜法律觀點分享
   </footer>
 </body>
 </html>
