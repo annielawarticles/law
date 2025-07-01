@@ -62,15 +62,17 @@
 
     details {
       margin: 1rem 0;
-      padding: 1rem;
-      background: #f5f5f5;
       border-radius: 8px;
-      cursor: pointer;
+      background: #f5f5f5;
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
     summary {
       font-weight: bold;
       list-style: none;
+      cursor: pointer;
+      padding: 1rem;
     }
 
     summary::before {
@@ -82,18 +84,33 @@
       display: none;
     }
 
-    details[open] {
-      background: #e7e3df;
+    summary::after {
+      content: "▶";
+      float: right;
+      transition: transform 0.3s ease;
     }
 
-    details p {
-  margin: 0.5rem 0 0 1.5rem;
-  line-height: 1.6;
-  background: #ffffff; /* 白底 */
-  padding: 0.5rem 1rem; /* 讓文字不要貼邊 */
-  border-radius: 6px;   /* 有圓角更好看 */
-}
+    details[open] summary::after {
+      transform: rotate(90deg);
+    }
 
+    .details-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    details[open] .details-content {
+      max-height: 500px; /* 夠高讓內容顯示 */
+    }
+
+    .details-content p {
+      margin: 0.5rem 0 0 1.5rem;
+      line-height: 1.6;
+      background: #ffffff;
+      padding: 0.8rem 1rem;
+      border-radius: 6px;
+    }
 
     footer {
       background-color: #7b5e57;
@@ -123,32 +140,37 @@
 
     <details>
       <summary>如何離婚？離婚流程及必知權益？</summary>
-      <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程以及可能遇到的爭議與應對方法。</p>
-      <p><a href="article1.html">閱讀全文</a></p>
+      <div class="details-content">
+        <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程以及可能遇到的爭議與應對方法。<a href="article1.html">（閱讀全文）</a></p>
+      </div>
     </details>
 
     <details>
       <summary>監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</summary>
-      <p>面對監護權與探視權的糾紛，了解法律途徑及法院判斷原則，掌握孩子最佳利益原則與可用的緊急處置方式，保護您與孩子的權益。</p>
-      <p><a href="article2.html">閱讀全文</a></p>
+      <div class="details-content">
+        <p>面對監護權與探視權的糾紛，了解法律途徑及法院判斷原則，掌握孩子最佳利益原則與可用的緊急處置方式，保護您與孩子的權益。<a href="article2.html">（閱讀全文）</a></p>
+      </div>
     </details>
 
     <details>
       <summary>收到存證信函怎麼辦？</summary>
-      <p>存證信函是一種法律通知，可能涉及債務、違約、離婚或侵權爭議，收到後該如何回應、需不需要回覆，一次告訴你。</p>
-      <p><a href="article3.html">閱讀全文</a></p>
+      <div class="details-content">
+        <p>存證信函是一種法律通知，可能涉及債務、違約、離婚或侵權爭議，收到後該如何回應、需不需要回覆，一次告訴你。<a href="article3.html">（閱讀全文）</a></p>
+      </div>
     </details>
 
     <details>
       <summary>如何斷絕親子關係，法律跟你想的不一樣</summary>
-      <p>兒女不孝就可以斷絕親子關係嗎，律師帶你認識真相。</p>
-      <p><a href="article4.html">閱讀全文</a></p>
+      <div class="details-content">
+        <p>兒女不孝就可以斷絕親子關係嗎？法律其實有嚴格限制，律師帶你認識真正可行的方式與要件。<a href="article4.html">（閱讀全文）</a></p>
+      </div>
     </details>
 
     <details>
       <summary>樓上鄰居漏水惱人，法律應對策略大公開</summary>
-      <p>樓上漏水常成為大樓住戶之間的糾紛重災區，如何蒐證、報修、協調與最終法律途徑，一篇帶你從預防到提告，完整應對不再吃虧。</p>
-      <p><a href="article5.html">閱讀全文</a></p>
+      <div class="details-content">
+        <p>樓上漏水常成為大樓住戶之間的糾紛重災區，如何蒐證、報修、協調與最終法律途徑，一篇帶你從預防到提告，完整應對不再吃虧。<a href="article5.html">（閱讀全文）</a></p>
+      </div>
     </details>
 
   </div>
