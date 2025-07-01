@@ -4,152 +4,125 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>法律專欄｜安心說法</title>
- <style>
-  body {
-    font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7fb; /* 淺藍灰背景 */
-    color: #333;
-  }
+  <style>
+    body {
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff9f0; /* 柔和米黃底 */
+      color: #333;
+    }
 
-  header {
-    background-color: #2f3b55; /* 深藍色 */
-    color: white;
-    padding: 1.5rem 2rem;
-    text-align: center;
-  }
+    header {
+      background-color: #2f3b55; /* 深藍 */
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
 
-  header h1 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-weight: 700;
-  }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
 
-  nav {
-    background-color: #3e4a68; /* 較淺的藍灰色 */
-    padding: 0.8rem 2rem;
-    text-align: center;
-  }
+    nav {
+      background-color: #3e4a68; /* 淺藍灰 */
+      padding: 0.8rem 2rem;
+      text-align: center;
+    }
 
-  nav a {
-    color: white;
-    margin: 0 1rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-  }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
 
-  nav a:hover {
-    text-decoration: underline;
-    color: #7da2c1; /* 較亮的藍點綴 */
-  }
+    nav a:hover {
+      text-decoration: underline;
+      color: #7da2c1;
+    }
 
-  .consult {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #2f3b55; /* 深藍背景 */
-    border-radius: 12px;
-  }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #ffffff; /* 卡片白底 */
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
 
-  .consult h2 {
-    margin-top: 0;
-    color: #fff; /* 標題白 */
-  }
+    .container h2 {
+      margin-top: 0;
+      color: #2f3b55;
+    }
 
-  .flow-step {
-    background: #ffffff; /* 白色卡片 */
-    color: #333;
-    margin: 1rem 0;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
+    details {
+      margin: 1rem 0;
+      border-radius: 8px;
+      background: #f1f4f8;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
 
-  .step-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2f3b55;
-    margin-bottom: 0.3rem;
-  }
+    summary {
+      position: relative;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 1rem;
+      list-style: none;
+      color: #2f3b55;
+    }
 
-  .step-content {
-    font-size: 1rem;
-  }
+    summary::before {
+      content: "◆ ";
+      color: #e07a5f; /* 活潑橘色菱形 */
+      margin-right: 0.5rem;
+    }
 
-  .line-link {
-    display: inline-block;
-    background: #00b900; /* LINE 綠 */
-    color: #fff;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    margin-left: 0.5rem;
-  }
+    summary::marker {
+      display: none;
+    }
 
-  .faq {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #ffffff; /* FAQ 用純白卡片 */
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
+    summary::after {
+      content: "▶";
+      position: absolute;
+      right: 1rem;
+      transition: transform 0.3s ease;
+    }
 
-  .faq h2 {
-    margin-top: 0;
-    color: #2f3b55; /* 深藍標題 */
-  }
+    details[open] summary::after {
+      transform: rotate(90deg);
+    }
 
-  details {
-    margin: 1rem 0;
-    border-radius: 8px;
-    background: #f1f4f8; /* 淺藍灰內文塊 */
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
+    .details-content {
+      background: #ffffff; /* 展開內容白底 */
+      padding: 0 1rem 1rem 1rem;
+    }
 
-  summary {
-    position: relative;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 1rem;
-    list-style: none;
-  }
+    .details-content p {
+      margin: 0;
+      line-height: 1.6;
+    }
 
-  summary::marker {
-    display: none;
-  }
+    .details-content a {
+      color: #2f3b55;
+      text-decoration: underline;
+      margin-left: 0.3rem;
+    }
 
-  summary::after {
-    content: "▶";
-    position: absolute;
-    right: 1rem;
-    transition: transform 0.3s ease;
-  }
-
-  details[open] summary::after {
-    transform: rotate(90deg);
-  }
-
-  details p {
-    padding: 0 1rem 1rem 1rem;
-    margin: 0;
-  }
-
-  footer {
-    background-color: #3e4a68;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-    border-radius: 0;
-  }
-</style>
-
+    footer {
+      background-color: #2f3b55;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <h1>安心說法</h1>
@@ -169,44 +142,45 @@
     <details>
       <summary>如何離婚？離婚流程及必知權益？</summary>
       <div class="details-content">
-        <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程以及可能遇到的爭議與應對方法。<a href="article1.html">（閱讀全文）</a></p>
+        <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程及常見爭議與應對方法。<a href="article1.html">閱讀全文</a></p>
       </div>
     </details>
 
     <details>
       <summary>監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</summary>
       <div class="details-content">
-        <p>面對監護權與探視權的糾紛，了解法律途徑及法院判斷原則，掌握孩子最佳利益原則與可用的緊急處置方式，保護您與孩子的權益。<a href="article2.html">（閱讀全文）</a></p>
+        <p>面對監護權與探視權的糾紛，了解法院判斷標準，掌握孩子最佳利益原則及緊急處置方式。<a href="article2.html">閱讀全文</a></p>
       </div>
     </details>
 
     <details>
       <summary>收到存證信函怎麼辦？</summary>
       <div class="details-content">
-        <p>存證信函是一種法律通知，可能涉及債務、違約、離婚或侵權爭議，收到後該如何回應、需不需要回覆，一次告訴你。<a href="article3.html">（閱讀全文）</a></p>
+        <p>存證信函是一種法律通知，可能涉及債務、違約、離婚或侵權，收到後如何應對，一次告訴你。<a href="article3.html">閱讀全文</a></p>
       </div>
     </details>
 
     <details>
       <summary>如何斷絕親子關係，法律跟你想的不一樣</summary>
       <div class="details-content">
-        <p>兒女不孝就可以斷絕親子關係嗎？法律其實有嚴格限制，律師帶你認識真正可行的方式與要件。<a href="article4.html">（閱讀全文）</a></p>
+        <p>兒女不孝就能斷絕親子關係？其實法律有嚴格限制，律師帶你認識真相與可行方式。<a href="article4.html">閱讀全文</a></p>
       </div>
     </details>
 
     <details>
       <summary>樓上鄰居漏水惱人，法律應對策略大公開</summary>
       <div class="details-content">
-        <p>樓上漏水常成為大樓住戶之間的糾紛重災區，如何蒐證、報修、協調與最終法律途徑，一篇帶你從預防到提告，完整應對不再吃虧。<a href="article5.html">（閱讀全文）</a></p>
+        <p>樓上漏水是大樓糾紛重災區，從蒐證、報修、協調到法律途徑，一篇帶你從預防到提告。<a href="article5.html">閱讀全文</a></p>
       </div>
     </details>
 
   </div>
 
   <footer>
-    &copy; 2025 安心說法｜法律觀點分享
+    &copy;安心說法｜法律觀點分享
   </footer>
 </body>
 </html>
+
 
 
