@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>法律專欄｜安心說法</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdf6f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #5a3e36;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    nav {
+      background-color: #7b5e57;
+      padding: 0.8rem 2rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #e07a5f;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      background: #fff9f5;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(90, 62, 54, 0.15);
+    }
+
+    .container h2 {
+      margin-top: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      background-color: #7b5e57;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      border-radius: 15px 15px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>安心說法</h1>
+    <p>分享法律觀點，讓你安心了解法律的世界</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">首頁</a>
+    <a href="index.html">法律專欄</a>
+    <a href="../cases/index.html">成功案例</a>
+    <a href="../Consult.html">開始諮詢</a>
+  </nav>
+
+  <div class="container">
+    <h2>法律專欄</h2>
+    <ul>
+      <li><a href="article1.html">如何離婚？離婚流程及必知權益？</a></li>
+      <li><a href="article2.html">監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</a></li>
+      <li><a href="article3.html">收到存證信函怎麼辦？</a></li>
+      <li><a href="article4.html">如何斷絕親子關係，法律跟你想的不一樣</a></li>
+      <li><a href="article5.html">樓上鄰居漏水惱人，法律應對策略大公開</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    &copy; 2025 安心說法｜法律觀點分享
+  </footer>
+</body>
+</html>
