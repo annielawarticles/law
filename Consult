@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>法律諮詢流程</title>
+  <style>
+    body {
+      background: #d3d3d3; /* 近似你的背景灰 */
+      font-family: "Noto Sans TC", sans-serif;
+      padding: 2rem;
+    }
+
+    .flow-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step {
+      background: #4a6c35; /* 深綠色 */
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      min-width: 160px;
+    }
+
+    .step.dark {
+      background: #2f3b55; /* 深藍色 */
+    }
+
+    .arrow {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>法律諮詢流程</h1>
+  <div class="flow-container">
+    <div class="flow">
+      <div class="step">預約法律諮詢</div>
+      <div class="arrow">➔</div>
+      <div class="step">準備文件資料</div>
+      <div class="arrow">➔</div>
+      <div class="step">律師提供法律意見、報價</div>
+    </div>
+    <div class="flow">
+      <div class="step dark">確定委任律師</div>
+      <div class="arrow">➔</div>
+      <div class="step dark">簽訂委任契約</div>
+      <div class="arrow">➔</div>
+      <div class="step dark">支付委任費</div>
+      <div class="arrow">➔</div>
+      <div class="step dark">提供法律服務<br>(撰擬訴狀、開庭)</div>
+    </div>
+  </div>
+</body>
+</html>
