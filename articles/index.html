@@ -54,36 +54,52 @@
 
     .article {
       margin: 1rem 0;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     .article-title {
-      background: #e6f0fa;  /* 淺藍色背景 */
+      background: #e6f0fa;
       font-weight: bold;
       color: #2f3b55;
       cursor: pointer;
       position: relative;
-      padding: 1rem;
+      padding: 1rem 1rem 1rem 2.5rem;
       border-radius: 8px;
     }
 
     .article-title::before {
-      content: "◆ ";
-      color: #e07a5f; /* 暖橘菱形 */
-      margin-right: 0.5rem;
+      content: "◆";
+      color: #e07a5f;
+      position: absolute;
+      left: 1rem;
+      top: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .article-title::after {
+      content: "▶";
+      position: absolute;
+      right: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .article.active .article-title::after {
+      transform: rotate(90deg);
     }
 
     .article-content {
       max-height: 0;
       overflow: hidden;
-      background: #ffffff; /* 白色卡片 */
-      border-radius: 8px;
+      background: #ffffff;
+      border-radius: 0 0 8px 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin: 0.5rem 0 0 0;
+      margin: 0;
       padding: 0 1rem;
       transition: max-height 0.5s ease, padding 0.5s ease;
     }
 
-    .article-content.open {
+    .article.active .article-content {
       max-height: 200px;
       padding: 1rem;
     }
@@ -94,9 +110,19 @@
     }
 
     .article-content a {
-      color: #2f3b55;
-      text-decoration: underline;
-      margin-left: 0.3rem;
+      display: inline-block;
+      background-color: #2f3b55;
+      color: #ffffff;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .article-content a:hover {
+      background-color: #3e4a68;
     }
 
     footer {
@@ -128,35 +154,40 @@
     <div class="article">
       <div class="article-title">如何離婚？離婚流程及必知權益？</div>
       <div class="article-content">
-        <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程與應對方法。<a href="article1.html">閱讀全文</a></p>
+        <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程與應對方法。</p>
+        <a href="article1.html">閱讀全文</a>
       </div>
     </div>
 
     <div class="article">
       <div class="article-title">監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</div>
       <div class="article-content">
-        <p>面對監護權與探視權糾紛，掌握法院判斷標準、孩子最佳利益原則及緊急處置方式。<a href="article2.html">閱讀全文</a></p>
+        <p>面對監護權與探視權糾紛，掌握法院判斷標準、孩子最佳利益原則及緊急處置方式。</p>
+        <a href="article2.html">閱讀全文</a>
       </div>
     </div>
 
     <div class="article">
       <div class="article-title">收到存證信函怎麼辦？</div>
       <div class="article-content">
-        <p>存證信函是法律通知，可能涉及債務、違約、離婚或侵權，收到後該怎麼應對？<a href="article3.html">閱讀全文</a></p>
+        <p>存證信函是法律通知，可能涉及債務、違約、離婚或侵權，收到後該怎麼應對？</p>
+        <a href="article3.html">閱讀全文</a>
       </div>
     </div>
 
     <div class="article">
       <div class="article-title">如何斷絕親子關係，法律跟你想的不一樣</div>
       <div class="article-content">
-        <p>兒女不孝就能斷絕親子關係？其實法律有嚴格限制，律師帶你認識可行方式。<a href="article4.html">閱讀全文</a></p>
+        <p>兒女不孝就能斷絕親子關係？其實法律有嚴格限制，律師帶你認識可行方式。</p>
+        <a href="article4.html">閱讀全文</a>
       </div>
     </div>
 
     <div class="article">
       <div class="article-title">樓上鄰居漏水惱人，法律應對策略大公開</div>
       <div class="article-content">
-        <p>樓上漏水是大樓糾紛重災區，從蒐證、報修、協調到法律途徑，一篇帶你完整應對！<a href="article5.html">閱讀全文</a></p>
+        <p>樓上漏水是大樓糾紛重災區，從蒐證、報修、協調到法律途徑，一篇帶你完整應對！</p>
+        <a href="article5.html">閱讀全文</a>
       </div>
     </div>
   </div>
@@ -166,11 +197,19 @@
   </footer>
 
   <script>
-    const titles = document.querySelectorAll('.article-title');
-    titles.forEach(title => {
+    const articles = document.querySelectorAll('.article');
+
+    articles.forEach(article => {
+      const title = article.querySelector('.article-title');
       title.addEventListener('click', () => {
-        const content = title.nextElementSibling;
-        content.classList.toggle('open');
+        // 先關閉其他
+        articles.forEach(a => {
+          if (a !== article) {
+            a.classList.remove('active');
+          }
+        });
+        // 自己切換
+        article.classList.toggle('active');
       });
     });
   </script>
