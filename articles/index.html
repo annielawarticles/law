@@ -50,7 +50,7 @@
     .container {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 2rem;
       background: #fff9f5;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(90, 62, 54, 0.15);
@@ -60,13 +60,34 @@
       margin-top: 0;
     }
 
-    ul {
-      list-style: none;
-      padding-left: 0;
+    details {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    li {
-      margin-bottom: 1rem;
+    summary {
+      font-weight: bold;
+      list-style: none;
+    }
+
+    summary::before {
+      content: "🔷 ";
+      margin-right: 0.5rem;
+    }
+
+    summary::marker {
+      display: none;
+    }
+
+    details[open] {
+      background: #e7e3df;
+    }
+
+    details p {
+      margin: 0.5rem 0 0 1.5rem;
     }
 
     footer {
@@ -94,13 +115,32 @@
 
   <div class="container">
     <h2>法律專欄</h2>
-    <ul>
-      <li><a href="article1.html">如何離婚？離婚流程及必知權益？</a></li>
-      <li><a href="article2.html">監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</a></li>
-      <li><a href="article3.html">收到存證信函怎麼辦？</a></li>
-      <li><a href="article4.html">如何斷絕親子關係，法律跟你想的不一樣</a></li>
-      <li><a href="article5.html">樓上鄰居漏水惱人，法律應對策略大公開</a></li>
-    </ul>
+
+    <details>
+      <summary>如何離婚？離婚流程及必知權益？</summary>
+      <p><a href="article1.html">閱讀全文</a></p>
+    </details>
+
+    <details>
+      <summary>監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</summary>
+      <p><a href="article2.html">閱讀全文</a></p>
+    </details>
+
+    <details>
+      <summary>收到存證信函怎麼辦？</summary>
+      <p><a href="article3.html">閱讀全文</a></p>
+    </details>
+
+    <details>
+      <summary>如何斷絕親子關係，法律跟你想的不一樣</summary>
+      <p><a href="article4.html">閱讀全文</a></p>
+    </details>
+
+    <details>
+      <summary>樓上鄰居漏水惱人，法律應對策略大公開</summary>
+      <p><a href="article5.html">閱讀全文</a></p>
+    </details>
+
   </div>
 
   <footer>
@@ -108,3 +148,4 @@
   </footer>
 </body>
 </html>
+
