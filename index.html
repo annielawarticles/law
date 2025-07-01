@@ -6,71 +6,149 @@
   <meta name="description" content="安心說法｜分享法律觀點，讓你安心了解法律的世界">
   <meta name="keywords" content="監護權, 暫時處分, 家事事件, 探視權, 離婚律師, 家事律師, 台北律師, 法律諮詢">
   <title>安心說法｜首頁</title>
-  <style>
-    body {
-      font-family: "Noto Sans TC", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fdf6f0;
-      color: #333;
-    }
+   <style>
+  body {
+    font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fb; /* 淺藍灰背景 */
+    color: #333;
+  }
 
-    header {
-      background-color: #fff9f0;
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-    }
+  header {
+    background-color: #2f3b55; /* 深藍色 */
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-      font-weight: 700;
-    }
+  header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
 
-    nav {
-      background-color: #7b5e57;
-      padding: 0.8rem 2rem;
-      text-align: center;
-    }
+  nav {
+    background-color: #3e4a68; /* 較淺的藍灰色 */
+    padding: 0.8rem 2rem;
+    text-align: center;
+  }
 
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
+  nav a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
 
-    nav a:hover {
-      text-decoration: underline;
-      color: #e07a5f;
-    }
+  nav a:hover {
+    text-decoration: underline;
+    color: #7da2c1; /* 較亮的藍點綴 */
+  }
 
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
+  .consult {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #2f3b55; /* 深藍背景 */
+    border-radius: 12px;
+  }
 
-    .welcome {
-      background: #fff9f5;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(90, 62, 54, 0.15);
-    }
+  .consult h2 {
+    margin-top: 0;
+    color: #fff; /* 標題白 */
+  }
 
-    footer {
-      background-color: #7b5e57;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 3rem;
-      border-radius: 15px 15px 0 0;
-    }
-  </style>
+  .flow-step {
+    background: #ffffff; /* 白色卡片 */
+    color: #333;
+    margin: 1rem 0;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .step-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2f3b55;
+    margin-bottom: 0.3rem;
+  }
+
+  .step-content {
+    font-size: 1rem;
+  }
+
+  .line-link {
+    display: inline-block;
+    background: #00b900; /* LINE 綠 */
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+  }
+
+  .faq {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff; /* FAQ 用純白卡片 */
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .faq h2 {
+    margin-top: 0;
+    color: #2f3b55; /* 深藍標題 */
+  }
+
+  details {
+    margin: 1rem 0;
+    border-radius: 8px;
+    background: #f1f4f8; /* 淺藍灰內文塊 */
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  summary {
+    position: relative;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 1rem;
+    list-style: none;
+  }
+
+  summary::marker {
+    display: none;
+  }
+
+  summary::after {
+    content: "▶";
+    position: absolute;
+    right: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 0 1rem 1rem 1rem;
+    margin: 0;
+  }
+
+  footer {
+    background-color: #fff9f0; ;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: 0;
+  }
 </head>
 <body>
   <header>
