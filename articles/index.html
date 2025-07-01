@@ -31,7 +31,6 @@
       margin: 0 1rem;
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.3s;
     }
 
     nav a:hover {
@@ -55,36 +54,37 @@
 
     .article {
       margin: 1rem 0;
-      border-bottom: 1px solid #ddd;
     }
 
     .article-title {
+      background: #e6f0fa;  /* 淺藍色背景 */
       font-weight: bold;
       color: #2f3b55;
       cursor: pointer;
       position: relative;
-      padding: 1rem 0;
+      padding: 1rem;
+      border-radius: 8px;
     }
 
     .article-title::before {
       content: "◆ ";
-      color: #e07a5f;
+      color: #e07a5f; /* 暖橘菱形 */
       margin-right: 0.5rem;
     }
 
     .article-content {
       max-height: 0;
       overflow: hidden;
-      background: #ffffff;
+      background: #ffffff; /* 白色卡片 */
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin: 0.5rem 0;
+      margin: 0.5rem 0 0 0;
       padding: 0 1rem;
       transition: max-height 0.5s ease, padding 0.5s ease;
     }
 
     .article-content.open {
-      max-height: 200px; /* 足夠展示一段文字 */
+      max-height: 200px;
       padding: 1rem;
     }
 
@@ -167,7 +167,6 @@
 
   <script>
     const titles = document.querySelectorAll('.article-title');
-
     titles.forEach(title => {
       title.addEventListener('click', () => {
         const content = title.nextElementSibling;
@@ -177,5 +176,4 @@
   </script>
 </body>
 </html>
-
 
