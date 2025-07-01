@@ -6,32 +6,19 @@
   <title>安心說法｜法律諮詢流程</title>
 
   <style>
-   .step-title {
-  font-size: 1.2rem;  /* 比內文大 */
-  font-weight: bold;
-  color: #2f3b55;     /* 跟背景呼應深藍或更深 */
-  margin-bottom: 0.3rem;
-}
-
-.step-content {
-  font-size: 1rem;
-  color: #333;
-}
     body {
-      font-family: "Noto Sans TC", sans-serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #fdf6f0;
+      background-color: #fff9f0; /* 淺米黃底 */
       color: #333;
     }
 
     header {
-      background-color: #5a3e36; /* 深棕色 */
+      background-color: #2f3b55; /* 深藍 */
       color: white;
       padding: 1.5rem 2rem;
       text-align: center;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
     }
 
     header h1 {
@@ -41,7 +28,7 @@
     }
 
     nav {
-      background-color: #7b5e57; /* 暖棕灰 */
+      background-color: #3e4a68; /* 較淺藍灰 */
       padding: 0.8rem 2rem;
       text-align: center;
     }
@@ -56,7 +43,7 @@
 
     nav a:hover {
       text-decoration: underline;
-      color: #e07a5f;
+      color: #7da2c1;
     }
 
     /* 諮詢流程區塊 */
@@ -64,13 +51,13 @@
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
-      background: #2f3b55; /* 深藍色 */
+      background: #2f3b55; /* 深藍背景 */
       border-radius: 12px;
     }
 
     .consult h2 {
       margin-top: 0;
-      color: #fff; /* 標題白色 */
+      color: #fff; /* 標題白 */
     }
 
     .flow-step {
@@ -82,9 +69,20 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2f3b55;
+      margin-bottom: 0.3rem;
+    }
+
+    .step-content {
+      font-size: 1rem;
+    }
+
     .line-link {
       display: inline-block;
-      background: #00b900; /* LINE 綠色 */
+      background: #00b900; /* LINE 綠 */
       color: #fff;
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
@@ -98,19 +96,20 @@
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
-      background: #fff9f5; /* 米白 */
+      background: #ffffff; /* FAQ 純白卡片 */
       border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .faq h2 {
       margin-top: 0;
-      color: #5a3e36;
+      color: #2f3b55; /* 跟 header/nav 同色 */
     }
 
     details {
       margin: 1rem 0;
       border-radius: 8px;
-      background: #f5f5f5;
+      background: #f1f4f8; /* 淺藍灰塊 */
       overflow: hidden;
       transition: all 0.3s ease;
     }
@@ -144,12 +143,11 @@
     }
 
     footer {
-      background-color: #7b5e57;
+      background-color: #2f3b55; /* 深藍 footer */
       color: white;
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
-      border-radius: 15px 15px 0 0;
     }
   </style>
 </head>
@@ -167,33 +165,32 @@
     <a href="Consult.html">開始諮詢</a>
   </nav>
 
- <section class="consult">
-  <h2>法律諮詢流程</h2>
+  <section class="consult">
+    <h2>法律諮詢流程</h2>
 
-  <div class="flow-step">
-    <div class="step-title">STEP 1</div>
-    <div class="step-content">
-      預約法律諮詢
-      <a class="line-link" href="https://line.me/ti/p/你的LINE_ID" target="_blank">點擊LINE馬上開始諮詢</a>
+    <div class="flow-step">
+      <div class="step-title">STEP 1</div>
+      <div class="step-content">
+        預約法律諮詢
+        <a class="line-link" href="https://line.me/ti/p/你的LINE_ID" target="_blank">點擊LINE馬上開始諮詢</a>
+      </div>
     </div>
-  </div>
 
-  <div class="flow-step">
-    <div class="step-title">STEP 2</div>
-    <div class="step-content">律師提供法律意見及報價</div>
-  </div>
+    <div class="flow-step">
+      <div class="step-title">STEP 2</div>
+      <div class="step-content">律師提供法律意見及報價</div>
+    </div>
 
-  <div class="flow-step">
-    <div class="step-title">STEP 3</div>
-    <div class="step-content">確定委任律師，簽訂委任契約及支付委任費</div>
-  </div>
+    <div class="flow-step">
+      <div class="step-title">STEP 3</div>
+      <div class="step-content">確定委任律師，簽訂委任契約及支付委任費</div>
+    </div>
 
-  <div class="flow-step">
-    <div class="step-title">STEP 4</div>
-    <div class="step-content">提供法律服務（撰擬訴狀、開庭）</div>
-  </div>
-</section>
-
+    <div class="flow-step">
+      <div class="step-title">STEP 4</div>
+      <div class="step-content">提供法律服務（撰擬訴狀、開庭）</div>
+    </div>
+  </section>
 
   <section class="faq">
     <h2>常見問答</h2>
@@ -215,5 +212,4 @@
   </footer>
 </body>
 </html>
-
 
