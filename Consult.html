@@ -10,12 +10,12 @@
       font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #fff9f0; /* 淺米黃底 */
+      background-color: #fff9f0;
       color: #333;
     }
 
     header {
-      background-color: #2f3b55; /* 深藍 */
+      background-color: #2f3b55;
       color: white;
       padding: 1.5rem 2rem;
       text-align: center;
@@ -28,7 +28,7 @@
     }
 
     nav {
-      background-color: #3e4a68; /* 較淺藍灰 */
+      background-color: #3e4a68;
       padding: 0.8rem 2rem;
       text-align: center;
     }
@@ -46,22 +46,21 @@
       color: #7da2c1;
     }
 
-    /* 諮詢流程區塊 */
     .consult {
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
-      background: #2f3b55; /* 深藍背景 */
+      background: #2f3b55;
       border-radius: 12px;
     }
 
     .consult h2 {
       margin-top: 0;
-      color: #fff; /* 標題白 */
+      color: #fff;
     }
 
     .flow-step {
-      background: #ffffff; /* 白色卡片 */
+      background: #ffffff;
       color: #333;
       margin: 1rem 0;
       padding: 1rem 1.5rem;
@@ -82,7 +81,7 @@
 
     .line-link {
       display: inline-block;
-      background: #00b900; /* LINE 綠 */
+      background: #00b900;
       color: #fff;
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
@@ -91,59 +90,70 @@
       margin-left: 0.5rem;
     }
 
-    /* FAQ 區塊 */
     .faq {
       max-width: 800px;
       margin: 2rem auto;
       padding: 2rem;
-      background: #ffffff; /* FAQ 純白卡片 */
+      background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .faq h2 {
       margin-top: 0;
-      color: #2f3b55; /* 跟 header/nav 同色 */
+      color: #2f3b55;
     }
 
-    details {
+    .faq-item {
+      background: #f1f4f8;
       margin: 1rem 0;
       border-radius: 8px;
-      background: #f1f4f8; /* 淺藍灰塊 */
       overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    summary {
-      position: relative;
-      font-weight: bold;
       cursor: pointer;
-      padding: 1rem;
-      list-style: none;
+      position: relative;
     }
 
-    summary::marker {
-      display: none;
+    .faq-question {
+      padding: 1rem 1rem 1rem 2.5rem; /* 左側留空給菱形 */
+      font-weight: bold;
+      position: relative;
     }
 
-    summary::after {
+    .faq-question::before {
+      content: "◆";
+      color: #2f3b55; /* 菱形顏色可換 */
+      position: absolute;
+      left: 1rem;
+      top: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .faq-question::after {
       content: "▶";
       position: absolute;
       right: 1rem;
       transition: transform 0.3s ease;
     }
 
-    details[open] summary::after {
+    .faq-item.active .faq-question::after {
       transform: rotate(90deg);
     }
 
-    details p {
-      padding: 0 1rem 1rem 1rem;
-      margin: 0;
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      background: #ffffff;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 1rem;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 1rem;
     }
 
     footer {
-      background-color: #2f3b55; /* 深藍 footer */
+      background-color: #2f3b55;
       color: white;
       text-align: center;
       padding: 1rem;
@@ -195,21 +205,41 @@
   <section class="faq">
     <h2>常見問答</h2>
 
-    <details>
-      <summary>Q：諮詢前需要準備什麼？</summary>
-      <p>建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Q：諮詢前需要準備什麼？</div>
+      <div class="faq-answer">
+        建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。
+      </div>
+    </div>
 
-    <details>
-      <summary>Q：諮詢方式及費用？</summary>
-      <p>線上文字諮詢不收費，由律師本人回覆，建議可以先線上諮詢後，再進一步與律師討論有無現場諮詢的必要。</p>
-      <p>第一次諮詢依小時計費，後續如需委任將提供完整報價方案，諮詢費均可折抵後續委任費用。</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Q：諮詢方式及費用？</div>
+      <div class="faq-answer">
+        線上文字諮詢不收費，由律師本人回覆，建議可以先線上諮詢後，再進一步與律師討論有無現場諮詢的必要。<br>
+        第一次諮詢依小時計費，後續如需委任將提供完整報價方案，諮詢費均可折抵後續委任費用。
+      </div>
+    </div>
   </section>
 
   <footer>
     &copy; 2025 安心說法｜法律觀點分享
   </footer>
+
+  <script>
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // 先把所有移除 active
+        faqItems.forEach(i => {
+          if (i !== item) {
+            i.classList.remove('active');
+          }
+        });
+        // 切換當前的
+        item.classList.toggle('active');
+      });
+    });
+  </script>
 </body>
 </html>
 
