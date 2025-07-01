@@ -2,64 +2,122 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>法律諮詢流程</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安心說法｜法律諮詢流程</title>
   <style>
     body {
-      background: #d3d3d3; /* 灰背景 */
       font-family: "Noto Sans TC", sans-serif;
-      padding: 2rem;
-    }
-
-    h1 {
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #fdf6f0;
       color: #333;
-      margin-bottom: 2rem;
     }
 
-    .flow-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      max-width: 500px;
-      margin: 0 auto;
+    header {
+      background-color: #5a3e36; /* 深棕色 */
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
     }
 
-    .step {
-      background: #4a6c35; /* 深綠色 */
-      color: #fff;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    nav {
+      background-color: #7b5e57; /* 暖棕灰 */
+      padding: 0.8rem 2rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
       font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #e07a5f;
+    }
+
+    .consult {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #4a6c35; /* 深綠色 */
+      color: white;
+      border-radius: 12px;
+    }
+
+    .consult h2 {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    .flow-step {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .line-link {
+      display: inline-block;
+      background: #00b900; /* LINE 綠色 */
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+    }
+
+    footer {
+      background-color: #7b5e57;
+      color: white;
       text-align: center;
-      width: 100%;
-    }
-
-    .step.dark {
-      background: #2f3b55; /* 深藍色 */
-    }
-
-    .arrow {
-      font-size: 2rem;
-      color: #333;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 15px 15px 0 0;
     }
   </style>
 </head>
 <body>
-  <h1>法律諮詢流程</h1>
-  <div class="flow-container">
-      <div class="step">
+  <header>
+    <h1>安心說法</h1>
+    <p>分享法律觀點，讓你安心了解法律的世界</p>
+  </header>
+
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="articles/index.html">法律專欄</a>
+    <a href="cases/index.html">成功案例</a>
+    <a href="Consult.html">開始諮詢</a>
+  </nav>
+
+  <section class="consult">
+    <h2>法律諮詢流程</h2>
+    <div class="flow-step">
       預約法律諮詢
-      <a class="line-link" href="https://line.me/ti/p/你的LINE_ID" target="_blank">LINE 諮詢</a>
+      <a class="line-link" href="https://line.me/ti/p/你的LINE_ID" target="_blank">點擊LINE線上諮詢</a>
     </div>
-    <div class="arrow">↓</div>
-    <div class="step">律師提供法律意見、報價</div>
-    <div class="arrow">↓</div>
-    <div class="step dark">確定委任律師，簽訂委任契約及支付委任費</div>
-    <div class="arrow">↓</div>
-    <div class="step dark">提供法律服務<br>(撰擬訴狀、開庭)</div>
-  </div>
+    <div class="flow-step">律師提供法律意見、報價</div>
+    <div class="flow-step">確定委任律師</div>
+    <div class="flow-step">簽訂委任契約及支付委任費</div>
+    <div class="flow-step">提供法律服務（撰擬訴狀、開庭）</div>
+  </section>
+
+  <footer>
+    &copy; 2025 安心說法｜法律觀點分享
+  </footer>
 </body>
 </html>
+
 
