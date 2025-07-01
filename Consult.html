@@ -79,6 +79,55 @@
       margin-left: 0.5rem;
     }
 
+    .faq {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff9f5; /* 米白 */
+      border-radius: 12px;
+    }
+
+    .faq h2 {
+      margin-top: 0;
+      color: #5a3e36;
+    }
+
+    details {
+      margin: 1rem 0;
+      border-radius: 8px;
+      background: #f5f5f5;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    summary {
+      position: relative;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 1rem;
+      list-style: none;
+    }
+
+    summary::marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "▶";
+      position: absolute;
+      right: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    details[open] summary::after {
+      transform: rotate(90deg);
+    }
+
+    details p {
+      padding: 0 1rem 1rem 1rem;
+      margin: 0;
+    }
+
     footer {
       background-color: #7b5e57;
       color: white;
@@ -106,12 +155,29 @@
     <h2>法律諮詢流程</h2>
     <div class="flow-step">
       預約法律諮詢
-      <a class="line-link" href="https://line.me/ti/p/你的LINE_ID" target="_blank">點擊LINE線上諮詢</a>
+      <a class="line-link" href="https://line.me/ti/p/你的LINE_ID" target="_blank">LINE 諮詢</a>
     </div>
+    <div class="flow-step">準備文件資料</div>
     <div class="flow-step">律師提供法律意見、報價</div>
     <div class="flow-step">確定委任律師</div>
     <div class="flow-step">簽訂委任契約及支付委任費</div>
     <div class="flow-step">提供法律服務（撰擬訴狀、開庭）</div>
+  </section>
+
+  <section class="faq">
+    <h2>常見問答</h2>
+
+    <details>
+      <summary>諮詢前需要準備什麼？</summary>
+      <p>建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。</p>
+    </details>
+
+    <details>
+      <summary>諮詢方式及費用？</summary>
+      <p>線上文字諮詢不收費，由律師本人回覆，建議可以先線上諮詢後，再進一步與律師討論有無現場諮詢的必要。</p>
+      <p>第一次諮詢依小時計費，後續如需委任將提供完整報價方案，諮詢費均可折抵後續委任費用。</p>
+    </details>
+
   </section>
 
   <footer>
