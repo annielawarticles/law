@@ -12,12 +12,12 @@
       font-family: "Noto Sans TC", "Helvetica Neue", Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f6f8; /* 專業淺灰背景 */
+      background-color: #f4f6f8;
       color: #333;
     }
 
     header {
-      background-color: #1e2a38; /* 穩重深藍 */
+      background-color: #1e2a38;
       color: white;
       padding: 2rem 2rem 1rem;
       text-align: center;
@@ -35,7 +35,7 @@
     }
 
     nav {
-      background-color: #2d3e50; /* 次深藍 */
+      background-color: #2d3e50;
       padding: 1rem 2rem;
       text-align: center;
     }
@@ -52,11 +52,19 @@
       opacity: 0.7;
     }
 
+    .banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 350px;
+      object-fit: cover;
+    }
+
     .container {
       max-width: 900px;
       margin: 4rem auto;
       padding: 2.5rem;
-      background: #ffffff; /* 白色卡片區塊 */
+      background: #ffffff;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       text-align: left;
@@ -73,12 +81,38 @@
       font-size: 1.05rem;
     }
 
+    .container ul {
+      line-height: 1.8;
+      font-size: 1.05rem;
+      padding-left: 1.2rem;
+    }
+
     footer {
-      background-color: #1e2a38; /* 深藍 Footer */
+      background-color: #1e2a38;
       color: white;
       text-align: center;
       padding: 1rem;
       font-size: 0.9rem;
+    }
+
+    /* 固定右上角 LINE 按鈕 */
+    .line-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #06C755;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: background-color 0.3s;
+      z-index: 999;
+    }
+
+    .line-button:hover {
+      background-color: #04b14a;
     }
   </style>
 </head>
@@ -86,8 +120,12 @@
 <body>
   <header>
     <h1>安心說法</h1>
-    <p>分享專業法律觀點，讓您安心了解法律的世界</p>
+    <p>Your Trusted Legal Partner</p>
   </header>
+
+  <div class="banner">
+    <img src="你的圖片網址.jpg" alt="法律形象圖">
+  </div>
 
   <nav>
     <a href="index.html">首頁</a>
@@ -96,22 +134,26 @@
     <a href="Consult.html">開始諮詢</a>
   </nav>
 
-<div class="container">
-  <h2>歡迎來到安心說法</h2>
-  <p>我們致力於用清晰、易懂的方式分享專業法律知識，協助您安心面對各種法律問題。</p>
-  <ul style="text-align: left; line-height: 1.8; font-size: 1.05rem;">
-    <li>提供 LINE 線上免費法律諮詢。</li>
-    <li>擅長處理離婚監護、夫妻剩餘財產分配、民事債務、房屋買賣糾紛、車禍糾紛、刑事辯護及告訴等各類民刑事案件。</li>
-    <li>陪同或代理當事人參與調解、協商、警局筆錄、地檢署偵訊及各級法院訴訟開庭。</li>
-    <li>代撰存證信函、律師函，並提供契約審閱、草擬及修訂服務。</li>
-  </ul>
-  <p>所有案件均由專業律師親自回覆與辦理，以專業、認真、誠信的態度，陪伴當事人走過司法程序的煎熬。</p>
-</div>
-
+  <div class="container">
+    <h2>歡迎來到安心說法</h2>
+    <p>我們致力於用清晰、易懂的方式分享專業法律知識，協助您安心面對各種法律問題。</p>
+    <ul>
+      <li>提供 LINE 線上免費法律諮詢。</li>
+      <li>擅長處理離婚監護、夫妻剩餘財產分配、民事債務、房屋買賣糾紛、車禍糾紛、刑事辯護及告訴等各類民刑事案件。</li>
+      <li>陪同或代理當事人參與調解、協商、警局筆錄、地檢署偵訊及各級法院訴訟開庭。</li>
+      <li>代撰存證信函、律師函，並提供契約審閱、草擬及修訂服務。</li>
+    </ul>
+    <p>所有案件均由專業律師親自回覆與辦理，以專業、認真、誠信的態度，陪伴當事人走過司法程序的煎熬。</p>
+  </div>
 
   <footer>
-    &copy; 安心說法
+    &copy; 2024 安心說法
   </footer>
+
+  <!-- 固定右上角 LINE 諮詢按鈕 -->
+  <a href="https://line.me/ti/p/cl3" class="line-button" target="_blank">LINE 線上諮詢</a>
+
 </body>
 </html>
+
 
