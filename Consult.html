@@ -75,21 +75,62 @@
       margin-bottom: 0.3rem;
     }
 
-    .step-content {
-      font-size: 1rem;
-    }
+    .step-content { font-size: 1rem; }
 
-    .line-link {
-      display: inline-block;
-      background: #00b900;
+    /* 右上角浮動「開始諮詢」按鈕 */
+    .consult-button{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #111827;
       color: #fff;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
+      padding: 10px 16px;
+      border-radius: 30px;
       text-decoration: none;
-      font-size: 0.9rem;
-      margin-left: 0.5rem;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(0,0,0,.15);
+      transition: opacity .2s ease;
+      z-index: 1001;
+    }
+    .consult-button:hover{ opacity:.9; }
+
+    /* Modal 遮罩與面板 */
+    .modal-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      display: none; /* 預設隱藏 */
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal{
+      width: min(920px, 92vw);
+      max-height: 90vh;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.9rem 1rem; background:#2f3b55; color:#fff;
+    }
+    .modal-title{ margin:0; font-size:1.05rem; font-weight:700; }
+    .modal-close{
+      appearance:none; border:none; background:transparent; color:#fff;
+      font-size:1.25rem; cursor:pointer; line-height:1;
+    }
+    .modal-body{ padding:0; background:#fff; }
+    .modal-body iframe{
+      width:100%;
+      height:min(1200px, 75vh);
+      border:0; display:block;
     }
 
+    /* FAQ */
     .faq {
       max-width: 800px;
       margin: 2rem auto;
@@ -99,10 +140,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    .faq h2 {
-      margin-top: 0;
-      color: #2f3b55;
-    }
+    .faq h2 { margin-top: 0; color: #2f3b55; }
 
     .faq-item {
       background: #f1f4f8;
@@ -121,7 +159,7 @@
 
     .faq-question::before {
       content: "◆";
-      color: #2f3b55; /* 菱形顏色可換 */
+      color: #2f3b55; /* 菱形顏色 */
       position: absolute;
       left: 1rem;
       top: 1.2rem;
@@ -135,9 +173,7 @@
       transition: transform 0.3s ease;
     }
 
-    .faq-item.active .faq-question::after {
-      transform: rotate(90deg);
-    }
+    .faq-item.active .faq-question::after { transform: rotate(90deg); }
 
     .faq-answer {
       max-height: 0;
@@ -159,87 +195,17 @@
       padding: 1rem;
       margin-top: 2rem;
     }
+
+    @media (max-width:640px){
+      .modal{ width:96vw; }
+      .modal-body iframe{ height:78vh; }
+    }
   </style>
 </head>
 
 <body>
   <header>
     <h1>安心說法律</h1>
-    <p>分享法律觀點，讓你安心了解法律的世界</p>
-  </header>
+    <p>分享法律觀點，讓你安心了解法律的
 
-  <nav>
-    <a href="index.html">首頁</a>
-    <a href="articles/index.html">法律專欄</a>
-    <a href="cases/index.html">成功案例</a>
-    <a href="Consult.html">開始諮詢</a>
-  </nav>
-
-  <section class="consult">
-    <h2>法律諮詢流程</h2>
-
-    <div class="flow-step">
-      <div class="step-title">STEP 1</div>
-      <div class="step-content">
-        預約法律諮詢
-        <a class="line-link" href="C"_blank">點擊LINE馬上開始諮詢</a>
-      </div>
-    </div>
-
-    <div class="flow-step">
-      <div class="step-title">STEP 2</div>
-      <div class="step-content">律師提供法律意見及報價</div>
-    </div>
-
-    <div class="flow-step">
-      <div class="step-title">STEP 3</div>
-      <div class="step-content">確定委任律師，簽訂委任契約及支付委任費</div>
-    </div>
-
-    <div class="flow-step">
-      <div class="step-title">STEP 4</div>
-      <div class="step-content">提供法律服務（撰擬訴狀、開庭）</div>
-    </div>
-  </section>
-
-  <section class="faq">
-    <h2>常見問答</h2>
-
-    <div class="faq-item">
-      <div class="faq-question">諮詢前需要準備什麼？</div>
-      <div class="faq-answer">
-        建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">諮詢方式及費用？</div>
-      <div class="faq-answer">
-        線上文字諮詢不收費，由律師本人回覆，建議可以先線上諮詢後，再進一步與律師討論有無現場諮詢的必要。<br>
-        第一次諮詢依小時計費，後續如需委任將提供完整報價方案，諮詢費均可折抵後續委任費用。
-      </div>
-    </div>
-  </section>
-
-  <footer>
- 
-  </footer>
-
-  <script>
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // 先把所有移除 active
-        faqItems.forEach(i => {
-          if (i !== item) {
-            i.classList.remove('active');
-          }
-        });
-        // 切換當前的
-        item.classList.toggle('active');
-      });
-    });
-  </script>
-</body>
-</html>
 
