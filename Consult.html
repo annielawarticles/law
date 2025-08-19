@@ -77,58 +77,19 @@
 
     .step-content { font-size: 1rem; }
 
-    /* 右上角浮動「開始諮詢」按鈕 */
-    .consult-button{
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #111827;
+    /* 綠色行動按鈕（沿用原本的 LINE 風格） */
+    .line-link {
+      display: inline-block;
+      background: #00b900;
       color: #fff;
-      padding: 10px 16px;
-      border-radius: 30px;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
       text-decoration: none;
+      font-size: 0.95rem;
+      margin-left: 0.5rem;
       font-weight: 700;
-      box-shadow: 0 4px 10px rgba(0,0,0,.15);
-      transition: opacity .2s ease;
-      z-index: 1001;
     }
-    .consult-button:hover{ opacity:.9; }
-
-    /* Modal 遮罩與面板 */
-    .modal-backdrop{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.5);
-      display: none; /* 預設隱藏 */
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal{
-      width: min(920px, 92vw);
-      max-height: 90vh;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .modal-header{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:.9rem 1rem; background:#2f3b55; color:#fff;
-    }
-    .modal-title{ margin:0; font-size:1.05rem; font-weight:700; }
-    .modal-close{
-      appearance:none; border:none; background:transparent; color:#fff;
-      font-size:1.25rem; cursor:pointer; line-height:1;
-    }
-    .modal-body{ padding:0; background:#fff; }
-    .modal-body iframe{
-      width:100%;
-      height:min(1200px, 75vh);
-      border:0; display:block;
-    }
+    .line-link:hover { background:#05a60b; }
 
     /* FAQ */
     .faq {
@@ -195,11 +156,6 @@
       padding: 1rem;
       margin-top: 2rem;
     }
-
-    @media (max-width:640px){
-      .modal{ width:96vw; }
-      .modal-body iframe{ height:78vh; }
-    }
   </style>
 </head>
 
@@ -213,8 +169,7 @@
     <a href="index.html">首頁</a>
     <a href="articles/index.html">法律專欄</a>
     <a href="cases/index.html">成功案例</a>
-    <!-- 導覽列直接打開表單彈窗 -->
-    <a href="#" data-open-consult>開始諮詢</a>
+    <a href="Consult.html">開始諮詢</a>
   </nav>
 
   <section class="consult">
@@ -223,7 +178,10 @@
     <div class="flow-step">
       <div class="step-title">STEP 1</div>
       <div class="step-content">
-        點擊右上角「開始諮詢」按鈕，填寫表單預約（我們將於一個工作日內與您聯繫）
+        預約法律諮詢
+        <!-- 維持原本按鈕外觀，但改連到你的 Google 表單（新分頁） -->
+        <a class="line-link" href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
+           target="_blank" rel="noopener">點此填寫表單開始諮詢</a>
       </div>
     </div>
 
@@ -234,12 +192,12 @@
 
     <div class="flow-step">
       <div class="step-title">STEP 3</div>
-      <div class="step-content">確定委任，簽訂委任契約並支付委任費</div>
+      <div class="step-content">確定委任律師，簽訂委任契約及支付委任費</div>
     </div>
 
     <div class="flow-step">
       <div class="step-title">STEP 4</div>
-      <div class="step-content">提供法律服務（撰擬訴狀、開庭等）</div>
+      <div class="step-content">提供法律服務（撰擬訴狀、開庭）</div>
     </div>
   </section>
 
@@ -256,8 +214,8 @@
     <div class="faq-item">
       <div class="faq-question">諮詢方式及費用？</div>
       <div class="faq-answer">
-        線上文字諮詢不收費，由律師本人回覆；如需現場或視訊，將依小時計費。<br>
-        第一次諮詢費可折抵後續委任費用，委任前會先提供完整報價供您評估。
+        線上文字諮詢不收費，由律師本人回覆，建議可以先線上諮詢後，再進一步與律師討論有無現場諮詢的必要。<br>
+        第一次諮詢依小時計費，後續如需委任將提供完整報價方案，諮詢費均可折抵後續委任費用。
       </div>
     </div>
   </section>
@@ -265,29 +223,6 @@
   <footer>
     <p>© <span id="y"></span> 安心說法律</p>
   </footer>
-
-  <!-- 右上角浮動按鈕（與導覽列同功能） -->
-  <a href="#" class="consult-button" data-open-consult>開始諮詢</a>
-
-  <!-- Modal：Google 表單 -->
-  <div class="modal-backdrop" id="consultModal" aria-hidden="true" role="dialog" aria-label="線上諮詢表單">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 class="modal-title">線上諮詢表單</h3>
-        <button class="modal-close" type="button" aria-label="關閉" id="consultClose">×</button>
-      </div>
-      <div class="modal-body">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform?embedded=true"
-          loading="lazy" allowfullscreen>
-        </iframe>
-        <div style="padding:.75rem 1rem; background:#f9fafb; border-top:1px solid #eef2f7; font-size:.95rem;">
-          如果表單未顯示，請
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform" target="_blank" rel="noopener">點此在新分頁填寫</a>。
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script>
     // FAQ 折疊
@@ -301,37 +236,6 @@
 
     // 動態年份
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Modal 控制
-    const modal = document.getElementById('consultModal');
-    const openers = document.querySelectorAll('[data-open-consult]');
-    const closeBtn = document.getElementById('consultClose');
-
-    function openModal(e){
-      if (e) e.preventDefault();
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden'; // 鎖定背景捲動
-      closeBtn.focus();
-    }
-    function closeModal(){
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    openers.forEach(el => el.addEventListener('click', openModal));
-    closeBtn.addEventListener('click', closeModal);
-
-    // ESC 關閉
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
-    });
-    // 點擊遮罩關閉
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
   </script>
 </body>
 </html>
-
