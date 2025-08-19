@@ -30,31 +30,12 @@
 
     footer{background:#1e2a38;color:#fff;text-align:center;padding:1rem;font-size:.9rem;}
 
-    /* 右上角浮動「開始諮詢」按鈕（取代 LINE 按鈕） */
+    /* 右上角「開始諮詢」浮動按鈕（純連結，不彈窗） */
     .consult-button{
       position:fixed;top:20px;right:20px;background:#111827;color:#fff;padding:10px 16px;border-radius:30px;
       text-decoration:none;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.15);transition:opacity .2s;z-index:1001;
     }
     .consult-button:hover{opacity:.9;}
-
-    /* Modal 遮罩與面板 */
-    .modal-backdrop{
-      position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000;
-    }
-    .modal{
-      width:min(920px,92vw);max-height:90vh;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);
-      overflow:hidden;display:flex;flex-direction:column;
-    }
-    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;background:#1e2a38;color:#fff;}
-    .modal-title{margin:0;font-size:1.05rem;font-weight:700;}
-    .modal-close{appearance:none;border:none;background:transparent;color:#fff;font-size:1.25rem;cursor:pointer;line-height:1;}
-    .modal-body{padding:0;background:#fff;}
-    .modal-body iframe{width:100%;height:min(1200px,75vh);border:0;display:block;}
-
-    @media (max-width:640px){
-      .modal{width:96vw;}
-      .modal-body iframe{height:78vh;}
-    }
   </style>
 </head>
 
@@ -71,8 +52,9 @@
     <a href="index.html">首頁</a>
     <a href="articles/index.html">法律專欄</a>
     <a href="cases/index.html">成功案例</a>
-    <!-- 導覽列也能打開表單視窗 -->
-    <a href="#" data-open-consult>開始諮詢</a>
+    <!-- 直接開 Google 表單（新分頁） -->
+    <a href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
+       target="_blank" rel="noopener">開始諮詢</a>
   </nav>
 
   <div class="container">
@@ -91,63 +73,14 @@
     <p>© <span id="y"></span> 安心說法律</p>
   </footer>
 
-  <!-- 右上角浮動按鈕 -->
-  <a href="#" class="consult-button" data-open-consult>開始諮詢</a>
-
-  <!-- Modal：Google 表單 -->
-  <div class="modal-backdrop" id="consultModal" aria-hidden="true" role="dialog" aria-label="線上諮詢表單">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 class="modal-title">線上諮詢表單</h3>
-        <button class="modal-close" type="button" aria-label="關閉" id="consultClose">×</button>
-      </div>
-      <div class="modal-body">
-        <iframe
-          src="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/edit"
-          loading="lazy" allowfullscreen>
-        </iframe>
-        <!-- 備援連結：若 iframe 被擋 -->
-        <div style="padding:.75rem 1rem;background:#f9fafb;border-top:1px solid #eef2f7;font-size:.95rem;">
-          如果表單沒有顯示，請
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform" target="_blank" rel="noopener">點此在新分頁填寫</a>。
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 右上角浮動按鈕（同樣直接開表單新分頁） -->
+  <a href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
+     class="consult-button" target="_blank" rel="noopener">開始諮詢</a>
 
   <script>
     // 動態年份
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Modal 控制
-    const modal = document.getElementById('consultModal');
-    const openers = document.querySelectorAll('[data-open-consult]');
-    const closeBtn = document.getElementById('consultClose');
-
-    function openModal(e){
-      if (e) e.preventDefault();
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden'; // 鎖捲動
-      closeBtn.focus();
-    }
-    function closeModal(){
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    openers.forEach(el => el.addEventListener('click', openModal));
-    closeBtn.addEventListener('click', closeModal);
-
-    // ESC 關閉
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
-    });
-    // 點遮罩關閉
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
   </script>
 </body>
 </html>
+
