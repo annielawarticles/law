@@ -8,96 +8,52 @@
   <title>安心說法律｜首頁</title>
 
   <style>
-    body {
-      font-family: "Noto Sans TC", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f6f8;
-      color: #333;
+    body{
+      font-family:"Noto Sans TC","Helvetica Neue",Helvetica,Arial,sans-serif;
+      margin:0;padding:0;background:#f4f6f8;color:#333;
     }
+    header{background:#1e2a38;color:#fff;padding:2rem 2rem 1rem;text-align:center;}
+    header h1{margin:0;font-size:2.5rem;font-weight:700;}
+    .banner img{width:100%;height:auto;display:block;max-height:380px;object-fit:cover;}
 
-    header {
-      background-color: #1e2a38;
-      color: white;
-      padding: 2rem 2rem 1rem;
-      text-align: center;
-    }
+    nav{background:#2d3e50;padding:1rem 2rem;text-align:center;margin-top:30px;}
+    nav a{color:#fff;margin:0 1.2rem;text-decoration:none;font-weight:600;transition:opacity .3s;}
+    nav a:hover{opacity:.7;}
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      font-weight: 700;
+    .container{
+      max-width:900px;margin:4rem auto;padding:2.5rem;background:#fff;border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.06);text-align:left;
     }
+    .container h2{color:#1e2a38;font-size:1.8rem;margin-top:0;}
+    .container p{line-height:1.8;font-size:1.05rem;}
+    .container ul{line-height:1.8;font-size:1.05rem;padding-left:1.2rem;}
 
-    .banner img {
-      width: 100%;
-      height: auto;
-      display: block;
-      max-height: 380px;
-      object-fit: cover;
-    }
+    footer{background:#1e2a38;color:#fff;text-align:center;padding:1rem;font-size:.9rem;}
 
-    nav {
-      background-color: #2d3e50;
-      padding: 1rem 2rem;
-      text-align: center;
-      margin-top: 30px;
+    /* 右上角浮動「開始諮詢」按鈕（取代 LINE 按鈕） */
+    .consult-button{
+      position:fixed;top:20px;right:20px;background:#111827;color:#fff;padding:10px 16px;border-radius:30px;
+      text-decoration:none;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.15);transition:opacity .2s;z-index:1001;
     }
+    .consult-button:hover{opacity:.9;}
 
-    nav a {
-      color: white;
-      margin: 0 1.2rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: opacity 0.3s;
+    /* Modal 遮罩與面板 */
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000;
     }
-    nav a:hover { opacity: 0.7; }
+    .modal{
+      width:min(920px,92vw);max-height:90vh;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);
+      overflow:hidden;display:flex;flex-direction:column;
+    }
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;background:#1e2a38;color:#fff;}
+    .modal-title{margin:0;font-size:1.05rem;font-weight:700;}
+    .modal-close{appearance:none;border:none;background:transparent;color:#fff;font-size:1.25rem;cursor:pointer;line-height:1;}
+    .modal-body{padding:0;background:#fff;}
+    .modal-body iframe{width:100%;height:min(1200px,75vh);border:0;display:block;}
 
-    .container {
-      max-width: 900px;
-      margin: 4rem auto;
-      padding: 2.5rem;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      text-align: left;
-    }
-
-    .container h2 { color: #1e2a38; font-size: 1.8rem; margin-top: 0; }
-    .container p { line-height: 1.8; font-size: 1.05rem; }
-    .container ul { line-height: 1.8; font-size: 1.05rem; padding-left: 1.2rem; }
-
-    footer {
-      background-color: #1e2a38;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
-
-    /* 表單區塊樣式 */
-    .contact-section {
-      max-width: 900px;
-      margin: 2rem auto 4rem;
-      padding: 1rem 1.25rem;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0,0,0,.06);
-    }
-    .contact-section h2 { margin:.25rem 0 .5rem; color:#1e2a38; }
-    .form-embed { position: relative; }
-    .form-embed iframe {
-      width: 100%;
-      min-height: 1200px; /* 表單較長時可再加高 */
-      border: 0;
-      border-radius: 12px;
-      background: #fff;
-    }
-    .fallback { margin:.5rem 0 0; color:#6b7280; }
-    .fallback a { color:#111827; font-weight:600; text-decoration:underline; }
     @media (max-width:640px){
-      .contact-section{ padding:.75rem; }
-      .form-embed iframe{ min-height: 1350px; }
+      .modal{width:96vw;}
+      .modal-body iframe{height:78vh;}
     }
   </style>
 </head>
@@ -115,15 +71,15 @@
     <a href="index.html">首頁</a>
     <a href="articles/index.html">法律專欄</a>
     <a href="cases/index.html">成功案例</a>
-    <!-- 導到同頁表單 -->
-    <a href="#consult">開始諮詢</a>
+    <!-- 導覽列也能打開表單視窗 -->
+    <a href="#" data-open-consult>開始諮詢</a>
   </nav>
 
   <div class="container">
     <h2>歡迎來到安心說法律</h2>
     <p>我們致力於用清晰、易懂的方式分享專業法律知識，協助您安心面對各種法律問題。</p>
     <ul>
-      <li>線上提供初步法律諮詢（請填寫下方表單）。</li>
+      <li>線上提供初步法律諮詢（點右上角「開始諮詢」）。</li>
       <li>擅長處理離婚監護、夫妻剩餘財產分配、民事債務、房屋買賣糾紛、車禍糾紛等各類民刑事案件。</li>
       <li>陪同或代理當事人參與調解、協商、警局筆錄、地檢署偵訊及各級法院訴訟開庭。</li>
       <li>代撰存證信函、律師函，並提供契約審閱、草擬及修訂服務。</li>
@@ -131,38 +87,67 @@
     <p>所有案件均由專業律師親自回覆與辦理，以專業、認真、誠信的態度，陪伴當事人走過司法程序的煎熬。</p>
   </div>
 
-  <!-- Google 表單嵌入區 -->
-  <section id="consult" class="contact-section" aria-label="線上諮詢表單">
-    <h2>填寫簡易表單｜我們主動聯繫您</h2>
-    <p>留下基本資料與問題重點，我們會在一個工作日內回覆（急件請直接來電）。</p>
-
-    <div class="form-embed">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform?embedded=true"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        loading="lazy"
-        allowfullscreen>載入表單中…</iframe>
-
-      <p class="fallback">
-        如果表單沒有顯示，請
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform" target="_blank" rel="noopener">點此在新分頁填寫</a>。
-      </p>
-    </div>
-  </section>
-
   <footer>
     <p>© <span id="y"></span> 安心說法律</p>
   </footer>
 
+  <!-- 右上角浮動按鈕 -->
+  <a href="#" class="consult-button" data-open-consult>開始諮詢</a>
+
+  <!-- Modal：Google 表單 -->
+  <div class="modal-backdrop" id="consultModal" aria-hidden="true" role="dialog" aria-label="線上諮詢表單">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">線上諮詢表單</h3>
+        <button class="modal-close" type="button" aria-label="關閉" id="consultClose">×</button>
+      </div>
+      <div class="modal-body">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform?embedded=true"
+          loading="lazy" allowfullscreen>
+        </iframe>
+        <!-- 備援連結：若 iframe 被擋 -->
+        <div style="padding:.75rem 1rem;background:#f9fafb;border-top:1px solid #eef2f7;font-size:.95rem;">
+          如果表單沒有顯示，請
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform" target="_blank" rel="noopener">點此在新分頁填寫</a>。
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // 動態年份
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Modal 控制
+    const modal = document.getElementById('consultModal');
+    const openers = document.querySelectorAll('[data-open-consult]');
+    const closeBtn = document.getElementById('consultClose');
+
+    function openModal(e){
+      if (e) e.preventDefault();
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // 鎖捲動
+      closeBtn.focus();
+    }
+    function closeModal(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openers.forEach(el => el.addEventListener('click', openModal));
+    closeBtn.addEventListener('click', closeModal);
+
+    // ESC 關閉
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+    });
+    // 點遮罩關閉
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
   </script>
 </body>
 </html>
-
-
-
-
