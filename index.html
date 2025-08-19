@@ -29,16 +29,11 @@
       font-weight: 700;
     }
 
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1rem;
-    }
-
     .banner img {
       width: 100%;
       height: auto;
       display: block;
-      max-height: 380px; /* 圖片最大高度，可依需求調整 */
+      max-height: 380px;
       object-fit: cover;
     }
 
@@ -46,7 +41,7 @@
       background-color: #2d3e50;
       padding: 1rem 2rem;
       text-align: center;
-      margin-top: 30px; /* 👈 這行是關鍵：把導航往下推！ */
+      margin-top: 30px;
     }
 
     nav a {
@@ -56,10 +51,7 @@
       font-weight: 600;
       transition: opacity 0.3s;
     }
-
-    nav a:hover {
-      opacity: 0.7;
-    }
+    nav a:hover { opacity: 0.7; }
 
     .container {
       max-width: 900px;
@@ -71,22 +63,9 @@
       text-align: left;
     }
 
-    .container h2 {
-      color: #1e2a38;
-      font-size: 1.8rem;
-      margin-top: 0;
-    }
-
-    .container p {
-      line-height: 1.8;
-      font-size: 1.05rem;
-    }
-
-    .container ul {
-      line-height: 1.8;
-      font-size: 1.05rem;
-      padding-left: 1.2rem;
-    }
+    .container h2 { color: #1e2a38; font-size: 1.8rem; margin-top: 0; }
+    .container p { line-height: 1.8; font-size: 1.05rem; }
+    .container ul { line-height: 1.8; font-size: 1.05rem; padding-left: 1.2rem; }
 
     footer {
       background-color: #1e2a38;
@@ -96,23 +75,29 @@
       font-size: 0.9rem;
     }
 
-    .line-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #06C755;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      transition: background-color 0.3s;
-      z-index: 999;
+    /* 表單區塊樣式 */
+    .contact-section {
+      max-width: 900px;
+      margin: 2rem auto 4rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
     }
-
-    .line-button:hover {
-      background-color: #04b14a;
+    .contact-section h2 { margin:.25rem 0 .5rem; color:#1e2a38; }
+    .form-embed { position: relative; }
+    .form-embed iframe {
+      width: 100%;
+      min-height: 1200px; /* 表單較長時可再加高 */
+      border: 0;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .fallback { margin:.5rem 0 0; color:#6b7280; }
+    .fallback a { color:#111827; font-weight:600; text-decoration:underline; }
+    @media (max-width:640px){
+      .contact-section{ padding:.75rem; }
+      .form-embed iframe{ min-height: 1350px; }
     }
   </style>
 </head>
@@ -130,14 +115,15 @@
     <a href="index.html">首頁</a>
     <a href="articles/index.html">法律專欄</a>
     <a href="cases/index.html">成功案例</a>
-    <a href="Consult.html">開始諮詢</a>
+    <!-- 導到同頁表單 -->
+    <a href="#consult">開始諮詢</a>
   </nav>
 
   <div class="container">
     <h2>歡迎來到安心說法律</h2>
     <p>我們致力於用清晰、易懂的方式分享專業法律知識，協助您安心面對各種法律問題。</p>
     <ul>
-      <li>提供 LINE 線上免費法律諮詢。</li>
+      <li>線上提供初步法律諮詢（請填寫下方表單）。</li>
       <li>擅長處理離婚監護、夫妻剩餘財產分配、民事債務、房屋買賣糾紛、車禍糾紛等各類民刑事案件。</li>
       <li>陪同或代理當事人參與調解、協商、警局筆錄、地檢署偵訊及各級法院訴訟開庭。</li>
       <li>代撰存證信函、律師函，並提供契約審閱、草擬及修訂服務。</li>
@@ -145,14 +131,38 @@
     <p>所有案件均由專業律師親自回覆與辦理，以專業、認真、誠信的態度，陪伴當事人走過司法程序的煎熬。</p>
   </div>
 
-  <footer>
+  <!-- Google 表單嵌入區 -->
+  <section id="consult" class="contact-section" aria-label="線上諮詢表單">
+    <h2>填寫簡易表單｜我們主動聯繫您</h2>
+    <p>留下基本資料與問題重點，我們會在一個工作日內回覆（急件請直接來電）。</p>
 
+    <div class="form-embed">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform?embedded=true"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        loading="lazy"
+        allowfullscreen>載入表單中…</iframe>
+
+      <p class="fallback">
+        如果表單沒有顯示，請
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform" target="_blank" rel="noopener">點此在新分頁填寫</a>。
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="y"></span> 安心說法律</p>
   </footer>
 
-  <a href="C" class="line-button" target="_blank">LINE 線上諮詢</a>
-
+  <script>
+    // 動態年份
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
+
 
 
 
