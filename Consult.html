@@ -206,6 +206,132 @@
 <body>
   <header>
     <h1>安心說法律</h1>
-    <p>分享法律觀點，讓你安心了解法律的
+    <p>分享法律觀點，讓你安心了解法律的世界</p>
+  </header>
 
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="articles/index.html">法律專欄</a>
+    <a href="cases/index.html">成功案例</a>
+    <!-- 導覽列直接打開表單彈窗 -->
+    <a href="#" data-open-consult>開始諮詢</a>
+  </nav>
+
+  <section class="consult">
+    <h2>法律諮詢流程</h2>
+
+    <div class="flow-step">
+      <div class="step-title">STEP 1</div>
+      <div class="step-content">
+        點擊右上角「開始諮詢」按鈕，填寫表單預約（我們將於一個工作日內與您聯繫）
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-title">STEP 2</div>
+      <div class="step-content">律師提供法律意見及報價</div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-title">STEP 3</div>
+      <div class="step-content">確定委任，簽訂委任契約並支付委任費</div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-title">STEP 4</div>
+      <div class="step-content">提供法律服務（撰擬訴狀、開庭等）</div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>常見問答</h2>
+
+    <div class="faq-item">
+      <div class="faq-question">諮詢前需要準備什麼？</div>
+      <div class="faq-answer">
+        建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">諮詢方式及費用？</div>
+      <div class="faq-answer">
+        線上文字諮詢不收費，由律師本人回覆；如需現場或視訊，將依小時計費。<br>
+        第一次諮詢費可折抵後續委任費用，委任前會先提供完整報價供您評估。
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="y"></span> 安心說法律</p>
+  </footer>
+
+  <!-- 右上角浮動按鈕（與導覽列同功能） -->
+  <a href="#" class="consult-button" data-open-consult>開始諮詢</a>
+
+  <!-- Modal：Google 表單 -->
+  <div class="modal-backdrop" id="consultModal" aria-hidden="true" role="dialog" aria-label="線上諮詢表單">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">線上諮詢表單</h3>
+        <button class="modal-close" type="button" aria-label="關閉" id="consultClose">×</button>
+      </div>
+      <div class="modal-body">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform?embedded=true"
+          loading="lazy" allowfullscreen>
+        </iframe>
+        <div style="padding:.75rem 1rem; background:#f9fafb; border-top:1px solid #eef2f7; font-size:.95rem;">
+          如果表單未顯示，請
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFqop5URzTwIcn9u42nhB3aLPiU0-DLWogWkjsKOs8Mpgokg/viewform" target="_blank" rel="noopener">點此在新分頁填寫</a>。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // FAQ 折疊
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        faqItems.forEach(i => { if (i !== item) i.classList.remove('active'); });
+        item.classList.toggle('active');
+      });
+    });
+
+    // 動態年份
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Modal 控制
+    const modal = document.getElementById('consultModal');
+    const openers = document.querySelectorAll('[data-open-consult]');
+    const closeBtn = document.getElementById('consultClose');
+
+    function openModal(e){
+      if (e) e.preventDefault();
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // 鎖定背景捲動
+      closeBtn.focus();
+    }
+    function closeModal(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openers.forEach(el => el.addEventListener('click', openModal));
+    closeBtn.addEventListener('click', closeModal);
+
+    // ESC 關閉
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+    });
+    // 點擊遮罩關閉
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  </script>
+</body>
+</html>
 
