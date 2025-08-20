@@ -2,215 +2,216 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>法律專欄｜安心說法律</title>
   <style>
-    body {
-      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff9f0;
-      color: #333;
+    :root{
+      --ink:#2f3b55; --ink-2:#3e4a68; --bg:#fff9f0; --card:#ffffff; --muted:#eef3f8; --chip:#e6edf6; --accent:#00b900;
     }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family:"Microsoft JhengHei","Noto Sans TC",system-ui; background:var(--bg); color:#333 }
 
-    header {
-      background-color: #2f3b55;
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-    }
+    header{ background:var(--ink); color:#fff; text-align:center; padding:1.5rem 1rem }
+    header h1{ margin:0; font-size:2rem; font-weight:800 }
+    header p{ margin:.25rem 0 0; opacity:.9 }
 
-    nav {
-      background-color: #3e4a68;
-      padding: 0.8rem 2rem;
-      text-align: center;
-    }
+    nav{ background:var(--ink-2); text-align:center; padding:.75rem 1rem; position:sticky; top:0; z-index:10 }
+    nav a{ color:#fff; text-decoration:none; font-weight:700; margin:0 .9rem }
+    nav a:hover{ opacity:.85 }
 
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 600;
-    }
+    .wrap{ max-width:1040px; margin:1.25rem auto 2rem; padding:0 1rem }
 
-    nav a:hover {
-      text-decoration: underline;
-      color: #7da2c1;
-    }
+    /* 工具列：搜尋 + 分類 chips  */
+    .toolbar{ display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem }
+    .search{ flex:1 1 220px; display:flex; }
+    .search input{ width:100%; padding:.65rem .9rem; border-radius:10px; border:1px solid #d4dbe6; outline:none }
 
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
+    .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip{ background:var(--chip); color:#223; border:1px solid #cfe0f4; padding:.4rem .7rem; border-radius:999px; cursor:pointer; font-size:.92rem; font-weight:700 }
+    .chip[aria-pressed="true"]{ background:#2f3b55; color:#fff; border-color:#2f3b55 }
 
-    .container h2 {
-      margin-top: 0;
-      color: #2f3b55;
-    }
+    /* 文章格狀卡片 */
+    .grid{ display:grid; grid-template-columns:1fr; gap:1rem; }
+    @media (min-width:680px){ .grid{ grid-template-columns:1fr 1fr; } }
+    @media (min-width:1040px){ .grid{ grid-template-columns:1fr 1fr 1fr; } }
 
-    .article {
-      margin: 1rem 0;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+    .card{ background:var(--card); border-radius:14px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:column }
+    .thumb{ aspect-ratio:16/9; background:linear-gradient(135deg,#cdd9ea,#e9f0fb); display:flex; align-items:center; justify-content:center; font-weight:800; letter-spacing:.02em; color:#2f3b55 }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block }
+    .body{ padding:1rem 1rem 1.1rem }
+    .meta{ font-size:.85rem; color:#445; opacity:.8; display:flex; gap:.5rem; align-items:center; margin-bottom:.35rem }
+    .meta .tag{ background:#eef3ff; border:1px solid #d9e5ff; color:#2b3f77; border-radius:6px; padding:.12rem .4rem; font-weight:700 }
+    .title{ font-weight:900; color:#1d2b3e; line-height:1.35; margin:.2rem 0 .55rem; font-size:1.03rem }
+    .excerpt{ margin:0 0 .75rem; color:#2a2a2a }
+    .read{ margin-top:auto }
+    .btn{ display:inline-flex; align-items:center; gap:.45rem; background:#2f3b55; color:#fff; text-decoration:none; padding:.5rem .8rem; border-radius:10px; font-weight:800 }
+    .btn:hover{ filter:brightness(.95) }
 
-    .article-title {
-      background: #e6f0fa;
-      font-weight: bold;
-      color: #2f3b55;
-      cursor: pointer;
-      position: relative;
-      padding: 1rem 1rem 1rem 2.5rem;
-      border-radius: 8px;
-    }
+    /* 更多按鈕 */
+    .more-wrap{ text-align:center; margin-top:1.2rem }
+    .more{ background:#2f3b55; color:#fff; border:none; padding:.7rem 1.2rem; border-radius:999px; font-weight:900; cursor:pointer }
 
-    .article-title::before {
-      content: "◆";
-      color: #e07a5f;
-      position: absolute;
-      left: 1rem;
-      top: 1.2rem;
-      font-size: 1rem;
-    }
-
-    .article-title::after {
-      content: "▶";
-      position: absolute;
-      right: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .article.active .article-title::after {
-      transform: rotate(90deg);
-    }
-
-    .article-content {
-      max-height: 0;
-      overflow: hidden;
-      background: #ffffff;
-      border-radius: 0 0 8px 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin: 0;
-      padding: 0 1rem;
-      transition: max-height 0.5s ease, padding 0.5s ease;
-    }
-
-    .article.active .article-content {
-      max-height: 200px;
-      padding: 1rem;
-    }
-
-    .article-content p {
-      margin: 0;
-      line-height: 1.6;
-    }
-
-    .article-content a {
-      display: inline-block;
-      background-color: #2f3b55;
-      color: #ffffff;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      margin-top: 0.8rem;
-      transition: background-color 0.3s ease;
-    }
-
-    .article-content a:hover {
-      background-color: #3e4a68;
-    }
-
-    footer {
-      background-color: #2f3b55;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
+    footer{ background:var(--ink); color:#fff; text-align:center; padding:1rem; margin-top:2rem }
   </style>
 </head>
-
 <body>
   <header>
     <h1>安心說法律</h1>
     <p>分享法律觀點，讓你安心了解法律的世界</p>
   </header>
 
+  <!-- 注意：相對路徑，對 project pages 安全 -->
   <nav>
     <a href="../index.html">首頁</a>
-    <a href="index.html">法律專欄</a>
+    <a href="./index.html" aria-current="page">法律專欄</a>
     <a href="../cases/index.html">成功案例</a>
-    <a href="../Consult.html">開始諮詢</a>
+    <a href="../consult.html">開始諮詢</a>
   </nav>
 
-  <div class="container">
-    <h2>法律專欄</h2>
-
-    <div class="article">
-      <div class="article-title">如何離婚？離婚流程及必知權益？</div>
-      <div class="article-content">
-        <p>離婚程序可以分成協議、調解及裁判三種形式，律師帶你了解離婚流程與應對方法。</p>
-        <a href="article1.html">閱讀全文</a>
+  <main class="wrap">
+    <div class="toolbar">
+      <div class="search">
+        <input id="q" type="search" placeholder="搜尋文章關鍵字…（例如：監護、漏水、存證信函）" />
+      </div>
+      <div class="chips" id="chips">
+        <!-- 動態 chips：全部、婚姻相關、財產分配、遺囑繼承、不動產、公寓大廈、證據蒐證、車禍相關、民事法律、刑事法律、智慧財產、公證認證、執業心得、打官司 -->
       </div>
     </div>
 
-    <div class="article">
-      <div class="article-title">監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？</div>
-      <div class="article-content">
-        <p>面對監護權與探視權糾紛，如何掌握法院判斷標準。</p>
-        <a href="article2.html">閱讀全文</a>
-      </div>
+    <section id="list" class="grid" aria-live="polite"></section>
+    <div class="more-wrap">
+      <button id="more" class="more">看更多</button>
     </div>
-
-    <div class="article">
-      <div class="article-title">收到存證信函怎麼辦？</div>
-      <div class="article-content">
-        <p>存證信函可能涉及債務、違約、離婚或侵權，收到後該怎麼應對？</p>
-        <a href="article3.html">閱讀全文</a>
-      </div>
-    </div>
-
-    <div class="article">
-      <div class="article-title">如何斷絕親子關係，法律跟你想的不一樣</div>
-      <div class="article-content">
-        <p>兒女不孝就能斷絕關係？律師教你，法律怎麼看「斷絕親子關係」這件事？</p>
-        <a href="article4.html">閱讀全文</a>
-      </div>
-    </div>
-
-    <div class="article">
-      <div class="article-title">樓上鄰居漏水惱人，法律應對策略大公開</div>
-      <div class="article-content">
-        <p>樓上漏水是大樓糾紛重災區，從蒐證、報修、協調到法律途徑，一篇帶你完整應對！</p>
-        <a href="article5.html">閱讀全文</a>
-      </div>
-    </div>
-  </div>
+  </main>
 
   <footer>
+    <p>© <span id="y"></span> 安心說法律</p>
   </footer>
 
   <script>
-    const articles = document.querySelectorAll('.article');
+    // ===== 資料：可自行增刪 =====
+    const ARTICLES = [
+      {
+        title:"如何離婚？離婚流程及必知權益？",
+        url:"article1.html",
+        date:"2025-04-21",
+        tags:["婚姻相關"],
+        excerpt:"離婚程序可分協議、調解與裁判三種；快速掌握流程與文件要點。",
+        img:null
+      },
+      {
+        title:"監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？",
+        url:"article2.html",
+        date:"2025-04-21",
+        tags:["婚姻相關"],
+        excerpt:"面對監護與探視權糾紛，整理法院考量重點與臨時處分策略。",
+        img:null
+      },
+      {
+        title:"收到存證信函怎麼辦？",
+        url:"article3.html",
+        date:"2025-04-21",
+        tags:["民事法律"],
+        excerpt:"拆解存證信函的效力與回應步驟，避免踩雷。",
+        img:null
+      },
+      {
+        title:"如何斷絕親子關係，法律跟你想的不一樣",
+        url:"article4.html",
+        date:"2025-04-21",
+        tags:["婚姻相關"],
+        excerpt:"從民法觀點澄清『斷絕親子關係』的迷思與實務。",
+        img:null
+      },
+      {
+        title:"樓上鄰居漏水惱人，法律應對策略大公開",
+        url:"article5.html",
+        date:"2025-04-21",
+        tags:["公寓大廈","民事法律"],
+        excerpt:"從報修到訴訟，完整教學漏水糾紛的蒐證與求償流程。",
+        img:null
+      },
+    ];
 
-    articles.forEach(article => {
-      const title = article.querySelector('.article-title');
-      title.addEventListener('click', () => {
-        // 先關閉其他
-        articles.forEach(a => {
-          if (a !== article) {
-            a.classList.remove('active');
-          }
-        });
-        // 自己切換
-        article.classList.toggle('active');
+    // ===== 參數：分類順序（會生成 chips） =====
+    const TAGS = [
+      "全部","婚姻相關","財產分配","遺囑繼承","不動產","公寓大廈","證據蒐證","車禍相關","民事法律","刑事法律","智慧財產","公證認證","執業心得","打官司"
+    ];
+
+    // ===== 工具 =====
+    const $ = (s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+    const listEl = $('#list');
+    const moreBtn = $('#more');
+    const qEl = $('#q');
+    const chipsEl = $('#chips');
+
+    const qs = new URLSearchParams(location.search);
+    let activeTag = qs.get('tag') || '全部';
+    let page = 1; // 第幾頁
+    const pageSize = 6; // 一次顯示幾篇
+
+    // 生成 chips
+    function renderChips(){
+      chipsEl.innerHTML = '';
+      TAGS.forEach(tag=>{
+        const b = document.createElement('button');
+        b.className = 'chip';
+        b.type = 'button';
+        b.textContent = tag;
+        b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
+        b.addEventListener('click',()=>{ activeTag = tag; page = 1; render(); });
+        chipsEl.appendChild(b);
       });
-    });
+    }
+
+    function formatDate(iso){
+      const d = new Date(iso);
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function template(a){
+      const tag = a.tags?.[0] || '';
+      return `
+        <article class="card">
+          <div class="thumb">${a.img ? `<img src="${a.img}" alt="">` : `${tag||'法律專欄'}`}</div>
+          <div class="body">
+            <div class="meta"><span>${formatDate(a.date)}</span>${tag?`<span class="tag">${tag}</span>`:''}</div>
+            <h3 class="title">${a.title}</h3>
+            <p class="excerpt">${a.excerpt||''}</p>
+            <div class="read"><a class="btn" href="${a.url}">閱讀全文</a></div>
+          </div>
+        </article>`
+    }
+
+    function filterData(){
+      const kw = qEl.value.trim();
+      let data = ARTICLES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+      if (activeTag && activeTag!== '全部') data = data.filter(a=> (a.tags||[]).includes(activeTag));
+      if (kw) data = data.filter(a=> a.title.includes(kw) || a.excerpt?.includes(kw));
+      return data;
+    }
+
+    function render(){
+      renderChips();
+      const data = filterData();
+      const slice = data.slice(0, page*pageSize);
+      listEl.innerHTML = slice.map(template).join('');
+      moreBtn.style.display = (slice.length < data.length) ? 'inline-block' : 'none';
+    }
+
+    // 互動綁定
+    qEl.addEventListener('input', ()=>{ page=1; render(); });
+    moreBtn.addEventListener('click', ()=>{ page++; render(); });
+
+    // 年份
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // 初始化（若 URL 有 ?tag=xxx，會自動選中對應分類）
+    if (!TAGS.includes(activeTag)) activeTag = '全部';
+    render();
   </script>
 </body>
 </html>
