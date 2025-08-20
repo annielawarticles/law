@@ -2,240 +2,164 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>安心說法律｜法律諮詢流程</title>
+  <!-- 說明：這頁不包含任何自動跳轉或 window.open，只有按鈕才會連到表單。 -->
 
   <style>
-    body {
-      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff9f0;
-      color: #333;
+    :root{
+      --ink:#2f3b55; --ink-2:#3e4a68; --bg:#fff9f0; --card:#ffffff; --muted:#f1f4f8; --accent:#00b900;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: "Microsoft JhengHei","Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      margin:0; padding:0; background:var(--bg); color:#333; line-height:1.6;
     }
 
-    header {
-      background-color: #2f3b55;
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
+    header{ background:var(--ink); color:#fff; padding:1.5rem 2rem; text-align:center; }
+    header h1{ margin:0; font-size:2.2rem; font-weight:800; letter-spacing:0.02em }
+    header p{ margin:0.25rem 0 0; opacity:.9 }
+
+    nav{ background:var(--ink-2); padding:.8rem 2rem; text-align:center; position:sticky; top:0; z-index:10 }
+    nav a{
+      color:#fff; margin:0 1rem; text-decoration:none; font-weight:700; display:inline-block; padding:.35rem .2rem; border-radius:.5rem; transition:opacity .2s
     }
+    nav a:hover{ opacity:.85 }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-      font-weight: 700;
+    .wrap{ max-width:960px; margin:2rem auto; padding:0 1rem }
+
+    .consult{ background:var(--ink); border-radius:14px; padding:2rem; color:#fff }
+    .consult h2{ margin:0 0 .75rem }
+
+    .steps{ display:grid; grid-template-columns:1fr; gap:1rem; }
+    @media (min-width:720px){ .steps{ grid-template-columns:1fr 1fr; } }
+
+    .flow-step{
+      background:var(--card); color:#333; border-radius:12px; padding:1rem 1.25rem; box-shadow:0 2px 8px rgba(0,0,0,.06);
     }
+    .step-title{ font-size:1.05rem; font-weight:800; color:var(--ink); margin:0 0 .35rem }
+    .step-content{ font-size:1rem }
 
-    nav {
-      background-color: #3e4a68;
-      padding: 0.8rem 2rem;
-      text-align: center;
+    .btn{
+      display:inline-flex; align-items:center; gap:.5rem; border-radius:999px; padding:.55rem 1rem; font-weight:800; text-decoration:none;
+      background:var(--accent); color:#fff; border:none; cursor:pointer; transition:transform .06s ease-out, filter .2s;
     }
+    .btn:hover{ filter:brightness(0.95) }
+    .btn:active{ transform:translateY(1px) }
 
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
+    .note{ font-size:.9rem; opacity:.9; margin-top:.5rem }
+
+    .faq{ background:var(--card); border-radius:14px; padding:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-top:2rem }
+    .faq h2{ margin:0 0 .5rem; color:var(--ink) }
+
+    .faq-item{ background:var(--muted); border-radius:10px; overflow:hidden; margin:1rem 0; }
+    .faq-q{
+      padding:1rem 2.5rem 1rem 2.5rem; position:relative; font-weight:800; cursor:pointer; user-select:none;
     }
+    .faq-q::before{ content:"◆"; position:absolute; left:1rem; top:1.05rem; color:var(--ink) }
+    .faq-q::after{ content:"▶"; position:absolute; right:1rem; top:1rem; transition:transform .25s ease }
 
-    nav a:hover {
-      text-decoration: underline;
-      color: #7da2c1;
-    }
+    .faq-a{ max-height:0; overflow:hidden; background:#fff; transition:max-height .35s ease, padding .35s ease; padding:0 1rem }
+    .faq-item.active .faq-a{ max-height:480px; padding:1rem }
+    .faq-item.active .faq-q::after{ transform:rotate(90deg) }
 
-    .consult {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #2f3b55;
-      border-radius: 12px;
-    }
-
-    .consult h2 {
-      margin-top: 0;
-      color: #fff;
-    }
-
-    .flow-step {
-      background: #ffffff;
-      color: #333;
-      margin: 1rem 0;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .step-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #2f3b55;
-      margin-bottom: 0.3rem;
-    }
-
-    .step-content { font-size: 1rem; }
-
-    /* 綠色行動按鈕（沿用原本的 LINE 風格） */
-    .line-link {
-      display: inline-block;
-      background: #00b900;
-      color: #fff;
-      padding: 0.35rem 0.9rem;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      margin-left: 0.5rem;
-      font-weight: 700;
-    }
-    .line-link:hover { background:#05a60b; }
-
-    /* FAQ */
-    .faq {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .faq h2 { margin-top: 0; color: #2f3b55; }
-
-    .faq-item {
-      background: #f1f4f8;
-      margin: 1rem 0;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .faq-question {
-      padding: 1rem 1rem 1rem 2.5rem; /* 左側留空給菱形 */
-      font-weight: bold;
-      position: relative;
-    }
-
-    .faq-question::before {
-      content: "◆";
-      color: #2f3b55; /* 菱形顏色 */
-      position: absolute;
-      left: 1rem;
-      top: 1.2rem;
-      font-size: 1rem;
-    }
-
-    .faq-question::after {
-      content: "▶";
-      position: absolute;
-      right: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    .faq-item.active .faq-question::after { transform: rotate(90deg); }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      background: #ffffff;
-      transition: max-height 0.4s ease, padding 0.4s ease;
-      padding: 0 1rem;
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 500px;
-      padding: 1rem;
-    }
-
-    footer {
-      background-color: #2f3b55;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
+    footer{ background:var(--ink); color:#fff; text-align:center; padding:1rem; margin-top:2rem }
   </style>
 </head>
-
 <body>
   <header>
     <h1>安心說法律</h1>
     <p>分享法律觀點，讓你安心了解法律的世界</p>
   </header>
 
-  <nav>
-    <a href="index.html">首頁</a>
-    <a href="articles/index.html">法律專欄</a>
-    <a href="cases/index.html">成功案例</a>
-    <a href="Consult.html">開始諮詢</a>
+  <!-- 注意：若此站是 Project Pages（username.github.io/repo/），請保持相對路徑（不要以 / 開頭）。 -->
+  <nav aria-label="主選單">
+    <a href="./index.html">首頁</a>
+    <a href="./articles/index.html">法律專欄</a>
+    <a href="./cases/index.html">成功案例</a>
+    <a href="./consult.html" aria-current="page">開始諮詢</a>
   </nav>
 
-  <section class="consult">
-    <h2>法律諮詢流程</h2>
-
-    <div class="flow-step">
-      <div class="step-title">STEP 1</div>
-      <div class="step-content">
-        預約法律諮詢
-        <!-- 維持原本按鈕外觀，但改連到你的 Google 表單（新分頁） -->
-        <a class="line-link" href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
-           target="_blank" rel="noopener">點此填寫表單開始諮詢</a>
+  <main class="wrap" id="main">
+    <section class="consult" aria-labelledby="consult-title">
+      <h2 id="consult-title">法律諮詢流程</h2>
+      <div class="steps">
+        <div class="flow-step">
+          <div class="step-title">STEP 1</div>
+          <div class="step-content">
+            預約法律諮詢
+            <!-- 僅此按鈕連到表單；target=_blank 於新分頁開啟 -->
+            <p style="margin:.6rem 0 0">
+              <a class="btn" href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform" target="_blank" rel="noopener noreferrer">
+                點此填寫表單開始諮詢
+              </a>
+            </p>
+            <p class="note">若按鈕點不動，請確認瀏覽器未安裝阻擋彈出視窗外掛。</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-title">STEP 2</div>
+          <div class="step-content">律師提供法律意見及報價</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-title">STEP 3</div>
+          <div class="step-content">確定委任律師，簽訂委任契約及支付委任費</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-title">STEP 4</div>
+          <div class="step-content">提供法律服務（撰擬訴狀、開庭）</div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="flow-step">
-      <div class="step-title">STEP 2</div>
-      <div class="step-content">律師提供法律意見及報價</div>
-    </div>
+    <section class="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">常見問答</h2>
 
-    <div class="flow-step">
-      <div class="step-title">STEP 3</div>
-      <div class="step-content">確定委任律師，簽訂委任契約及支付委任費</div>
-    </div>
+      <article class="faq-item">
+        <h3 class="faq-q">諮詢前需要準備什麼？</h3>
+        <div class="faq-a">
+          <p>建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。</p>
+        </div>
+      </article>
 
-    <div class="flow-step">
-      <div class="step-title">STEP 4</div>
-      <div class="step-content">提供法律服務（撰擬訴狀、開庭）</div>
-    </div>
-  </section>
-
-  <section class="faq">
-    <h2>常見問答</h2>
-
-    <div class="faq-item">
-      <div class="faq-question">諮詢前需要準備什麼？</div>
-      <div class="faq-answer">
-        建議您準備好相關文件、資料與問題清單，讓律師能更快了解您的情況。
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">諮詢方式及費用？</div>
-      <div class="faq-answer">
-        線上文字諮詢不收費，由律師本人回覆，建議可以先線上諮詢後，再進一步與律師討論有無現場諮詢的必要。<br>
-        第一次諮詢依小時計費，後續如需委任將提供完整報價方案，諮詢費均可折抵後續委任費用。
-      </div>
-    </div>
-  </section>
+      <article class="faq-item">
+        <h3 class="faq-q">諮詢方式及費用？</h3>
+        <div class="faq-a">
+          <p>線上文字諮詢不收費，由律師本人回覆，建議可先線上諮詢，再與律師討論是否需要現場諮詢。</p>
+          <p>第一次諮詢依小時計費；若後續委任，將提供完整報價方案；諮詢費可折抵後續委任費用。</p>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <footer>
     <p>© <span id="y"></span> 安心說法律</p>
   </footer>
 
   <script>
-    // FAQ 折疊
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      item.addEventListener('click', () => {
-        faqItems.forEach(i => { if (i !== item) i.classList.remove('active'); });
-        item.classList.toggle('active');
+    // FAQ 折疊 - 僅在使用者點擊時展開/收合
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach(it => {
+      const q = it.querySelector('.faq-q');
+      q.addEventListener('click', () => {
+        items.forEach(other => { if (other !== it) other.classList.remove('active'); });
+        it.classList.toggle('active');
       });
     });
 
     // 動態年份
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // 保險閥：阻擋非使用者互動觸發的新視窗（通常不必，但可避免第三方腳本誤觸）
+    (function(){
+      const _open = window.open;
+      window.open = function(){
+        // 僅在文件聚焦且（大部分情況下）由使用者互動時才允許
+        if (!document.hasFocus()) return null;
+        return _open.apply(window, arguments);
+      }
+    })();
   </script>
 </body>
 </html>
