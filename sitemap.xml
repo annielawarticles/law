@@ -1,48 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- 首頁 -->
   <url>
     <loc>https://annielawarticles.github.io/law/</loc>
+    <lastmod>2025-08-21</lastmod>
   </url>
-
-  <!-- 諮詢頁 -->
+  <url>
+    <loc>https://annielawarticles.github.io/law/index.html</loc>
+    <lastmod>2025-08-21</lastmod>
+  </url>
+  <url>
+    <loc>https://annielawarticles.github.io/law/articles/index.html</loc>
+    <lastmod>2025-08-21</lastmod>
+  </url>
+  <url>
+    <loc>https://annielawarticles.github.io/law/cases/index.html</loc>
+    <lastmod>2025-08-21</lastmod>
+  </url>
   <url>
     <loc>https://annielawarticles.github.io/law/consult.html</loc>
+    <lastmod>2025-08-21</lastmod>
   </url>
-
-  <!-- 專欄總覽頁 -->
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/</loc>
-  </url>
-
-  <!-- 成功案例頁 -->
-  <url>
-    <loc>https://annielawarticles.github.io/law/cases/</loc>
-  </url>
-
-  <!-- ✅ 每篇文章的完整網址 (依你 articles/ 裡的檔名) -->
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/divorce-process.html</loc>
-  </url>
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/guardianship-actions.html</loc>
-  </url>
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/notice-letter.html</loc>
-  </url>
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/parent-child-relationship.html</loc>
-  </url>
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/water-leakage.html</loc>
-  </url>
-
-  <!-- 之後新增文章，記得來這裡多加一行 -->
-  <!-- 範例： 
-  <url>
-    <loc>https://annielawarticles.github.io/law/articles/new-article.html</loc>
-  </url>
-  -->
-
 </urlset>
