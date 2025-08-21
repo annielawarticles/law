@@ -6,7 +6,8 @@
   <title>成功案例｜安心法律網</title>
   <style>
     :root{
-      --ink:#2f3b55; --ink-2:#3e4a68; --bg:#fff9f0; --card:#ffffff; --muted:#eef3f8; --chip:#e6edf6; --accent:#00b900;
+      --ink:#2f3b55; --ink-2:#3e4a68; --bg:#fff9f0; --card:#ffffff; --muted:#eef3f8; --chip:#e6edf6;
+      --accent:#cfa75d; /* 金色 */
     }
     *{box-sizing:border-box}
     body{ margin:0; font-family:"Microsoft JhengHei","Noto Sans TC",system-ui; background:var(--bg); color:#333 }
@@ -45,11 +46,9 @@
     .btn{ display:inline-flex; align-items:center; gap:.45rem; background:#2f3b55; color:#fff; text-decoration:none; padding:.5rem .8rem; border-radius:10px; font-weight:800; border:none; cursor:pointer }
     .btn:hover{ filter:brightness(.95) }
 
-    .disclaimer{ background:#fff7e0; border:1px solid #f1dfb3; color:#5a4b1b; border-radius:10px; padding:.8rem 1rem; margin:1rem 0 }
-
     footer{ background:var(--ink); color:#fff; text-align:center; padding:1rem; margin-top:2rem }
 
-    /* 詳細內容的對話框 */
+    /* 對話框 */
     dialog{ width:min(860px, 92vw); border:none; border-radius:16px; padding:0; box-shadow:0 10px 40px rgba(0,0,0,.28) }
     .dlg-head{ background:var(--ink); color:#fff; padding:1rem 1.2rem; display:flex; align-items:center; justify-content:space-between }
     .dlg-title{ margin:0; font-weight:900 }
@@ -61,14 +60,14 @@
     .dlg-foot{ display:flex; gap:.5rem; justify-content:flex-end; padding:0 1.2rem 1.2rem }
     .muted{ color:#667; font-size:.92rem }
 
-    /* 針對沒有 <dialog> 支援的瀏覽器退場樣式 */
+    /* 退場樣式 */
     .backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none }
     .backdrop.show{ display:block }
 
     /* 右上角金色「預約諮詢」浮動按鈕 */
     .consult-button{
       position:fixed; top:20px; right:20px;
-      background:#cfa75d; color:#fff;
+      background:var(--accent); color:#fff;
       padding:10px 16px; border-radius:30px;
       text-decoration:none; font-weight:700;
       box-shadow:0 4px 10px rgba(0,0,0,.15);
@@ -131,11 +130,11 @@
   </dialog>
 
   <footer>
-
+    <p>© <span id="y"></span> 安心法律網</p>
   </footer>
 
   <script>
-    // ===== 成功案例資料 =====
+    /* === 成功案例資料 === */
     const CASES = [
       {
         id: 'case-2025-support-exemption',
@@ -152,34 +151,22 @@
           '法院採信證人證詞與相關事證。'
         ],
         result: '法院判決 A 小姐免除對父親之扶養義務（勝訴）。',
-        img: null,
-        // 若你要放閱讀全文頁面（你命名為「免除扶養義務.html」）可在對話框開啟後自行加入連結
         url: './免除扶養義務.html'
       }
     ];
 
-    // ===== 參數：分類順序（生成 chips） =====
+    /* === 參數 / 快速選取 === */
     const TAGS = ['全部','家事','監護／探視','剩餘財產','公寓大廈','不動產','民事','刑事'];
-
-    // ===== 快速選取 =====
     const $ = (s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
-    const listEl = $('#list');
-    const chipsEl = $('#chips');
-    const qEl = $('#q');
-    const dlg = $('#dlg');
-    const dlgTitle = $('#dlg-title');
-    const dlgMeta = $('#dlg-meta');
-    const dlgType = $('#dlg-type');
-    const dlgProcess = $('#dlg-process');
-    const dlgResult = $('#dlg-result');
-    const closeBtns = [$('#dlg-close'), $('#dlg-close2')];
-    const copyBtn = $('#copy');
-    const backdrop = $('#backdrop');
+    const listEl = $('#list'), chipsEl = $('#chips'), qEl = $('#q');
+    const dlg = $('#dlg'), dlgTitle = $('#dlg-title'), dlgMeta = $('#dlg-meta');
+    const dlgType = $('#dlg-type'), dlgProcess = $('#dlg-process'), dlgResult = $('#dlg-result');
+    const closeBtns = [$('#dlg-close'), $('#dlg-close2')], copyBtn = $('#copy'), backdrop = $('#backdrop');
 
     const qs = new URLSearchParams(location.search);
     let activeTag = qs.get('tag') || '全部';
 
-    // 產 chips
+    /* === UI === */
     function renderChips(){
       chipsEl.innerHTML = '';
       TAGS.forEach(tag=>{
@@ -222,8 +209,7 @@
       renderChips();
       const data = filterData();
       listEl.innerHTML = data.map(template).join('');
-      // 綁定事件
-      $$('.btn', listEl).forEach(btn=> btn.addEventListener('click',()=> openCase(btn.dataset.id)) );
+      $$('.btn', listEl).forEach(btn=> btn.addEventListener('click',()=> openCase(btn.dataset.id)));
     }
 
     function openCase(id){
@@ -235,11 +221,8 @@
       dlgProcess.innerHTML = `<ol>${(c.process||[]).map(p=>`<li>${p}</li>`).join('')}</ol>`;
       dlgResult.innerHTML = (c.result||'') + (c.url ? `<p style="margin-top:.6rem"><a href="${c.url}">閱讀完整案例頁面</a></p>` : '');
 
-      if (typeof dlg.showModal === 'function') {
-        dlg.showModal();
-      } else { // 瀏覽器不支援 <dialog>
-        dlg.setAttribute('open',''); backdrop.classList.add('show');
-      }
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else { dlg.setAttribute('open',''); backdrop.classList.add('show'); }
       history.replaceState(null,'',`?id=${encodeURIComponent(id)}`);
     }
 
@@ -266,22 +249,17 @@
       });
     });
 
-    // 若 URL 帶 ?id= 直接打開對應案例
-    function initFromURL(){
+    /* 啟動 */
+    document.getElementById('y').textContent = new Date().getFullYear();
+    (function initFromURL(){
       const params = new URLSearchParams(location.search);
-      const id = params.get('id');
-      const tag = params.get('tag');
+      const id = params.get('id'); const tag = params.get('tag');
       if (tag) activeTag = TAGS.includes(tag)? tag : '全部';
       render();
-      if (id){
-        const c = CASES.find(x=>x.id===id);
-        if (c) openCase(id);
-      }
-    }
-
-    document.getElementById('y').textContent = new Date().getFullYear();
-    initFromURL();
+      if (id && CASES.find(x=>x.id===id)) openCase(id);
+    })();
   </script>
 </body>
 </html>
+
 
