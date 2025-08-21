@@ -65,18 +65,14 @@
     .backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none }
     .backdrop.show{ display:block }
 
-    /* === 只新增：右上角金色「預約諮詢」浮動按鈕 === */
+    /* 右上角金色「預約諮詢」浮動按鈕 */
     .consult-button{
       position:fixed; top:20px; right:20px;
-      background:#cfa75d; /* 金色 */
-      color:#fff;
-      padding:10px 16px;
-      border-radius:30px;
-      text-decoration:none;
-      font-weight:700;
+      background:#cfa75d; color:#fff;
+      padding:10px 16px; border-radius:30px;
+      text-decoration:none; font-weight:700;
       box-shadow:0 4px 10px rgba(0,0,0,.15);
-      transition:opacity .2s;
-      z-index:1001;
+      transition:opacity .2s; z-index:1001;
     }
     .consult-button:hover{ opacity:.9; }
   </style>
@@ -94,13 +90,11 @@
     <a href="../consult.html">開始諮詢</a>
   </nav>
 
-  <!-- 只新增：浮動金色按鈕 -->
+  <!-- 浮動金色按鈕 -->
   <a href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
      class="consult-button" target="_blank" rel="noopener">預約諮詢</a>
 
   <main class="wrap">
-    </section>
-
     <div class="toolbar">
       <div class="search"><input id="q" type="search" placeholder="搜尋案件關鍵字或類型…（例如：監護、剩餘財產、漏水）"/></div>
       <div class="chips" id="chips"></div>
@@ -137,28 +131,32 @@
   </dialog>
 
   <footer>
-    <p>© <span id="y"></span> 安心法律網</p>
+
   </footer>
 
   <script>
-    // ===== 範例資料（可自由增刪，img 可留空） =====
+    // ===== 成功案例資料 =====
     const CASES = [
-  // 在這裡新增你的案例物件，每個物件結構如下：
-  // {
-  //   id: '自訂唯一ID',            // 例如 'case-2025-001'
-  //   title: '案件標題',
-  //   date: 'YYYY-MM-DD',          // 例如 '2025-08-20'
-  //   region: '區域或法院（可留空）',
-  //   tags: ['分類1','分類2'],     // 例如 ['家事','監護／探視']，可留空陣列
-  //   type: '案件類型（例如：家事｜監護／探視）',
-  //   process: [                    // 處理過程（多點條列）
-  //     // '步驟一...',
-  //     // '步驟二...'
-  //   ],
-  //   result: '判決結果或協議結果（可簡述）',
-  //   img: null                     // 若未使用縮圖，維持 null
-  // }
-];
+      {
+        id: 'case-2025-support-exemption',
+        title: '免除扶養義務勝訴',
+        date: '2025-08-21',
+        region: '某地方法院',
+        tags: ['家事'],
+        type: '免除扶養義務',
+        process: [
+          '父親起訴請求子女定期給付扶養費。',
+          'A小姐主張父親自幼離家，生活費學費皆由祖父母負擔。',
+          '律師建議於本案內提出反聲請免除扶養義務。',
+          '開庭時父親否認；律師申請傳喚證人作證。',
+          '法院採信證人證詞與相關事證。'
+        ],
+        result: '法院判決 A 小姐免除對父親之扶養義務（勝訴）。',
+        img: null,
+        // 若你要放閱讀全文頁面（你命名為「免除扶養義務.html」）可在對話框開啟後自行加入連結
+        url: './免除扶養義務.html'
+      }
+    ];
 
     // ===== 參數：分類順序（生成 chips） =====
     const TAGS = ['全部','家事','監護／探視','剩餘財產','公寓大廈','不動產','民事','刑事'];
@@ -176,7 +174,7 @@
     const dlgResult = $('#dlg-result');
     const closeBtns = [$('#dlg-close'), $('#dlg-close2')];
     const copyBtn = $('#copy');
-    const backdrop = $('#backdrop']);
+    const backdrop = $('#backdrop');
 
     const qs = new URLSearchParams(location.search);
     let activeTag = qs.get('tag') || '全部';
@@ -209,7 +207,7 @@
           <p class="excerpt">${c.type}</p>
           <button class="btn" data-id="${c.id}">查看內容</button>
         </div>
-      </article>`
+      </article>`;
     }
 
     function filterData(){
@@ -235,7 +233,7 @@
       dlgMeta.textContent = `${formatDate(c.date)}${c.region?`｜${c.region}`:''}｜${(c.tags||[]).join(' / ')}`;
       dlgType.textContent = c.type;
       dlgProcess.innerHTML = `<ol>${(c.process||[]).map(p=>`<li>${p}</li>`).join('')}</ol>`;
-      dlgResult.textContent = c.result;
+      dlgResult.innerHTML = (c.result||'') + (c.url ? `<p style="margin-top:.6rem"><a href="${c.url}">閱讀完整案例頁面</a></p>` : '');
 
       if (typeof dlg.showModal === 'function') {
         dlg.showModal();
@@ -248,7 +246,6 @@
     function closeDlg(){
       if (dlg.open && typeof dlg.close === 'function') dlg.close();
       dlg.removeAttribute('open'); backdrop.classList.remove('show');
-      // 移除 id 參數但保留 tag
       const tag = activeTag && activeTag!=='全部' ? `?tag=${encodeURIComponent(activeTag)}` : '';
       history.replaceState(null,'', location.pathname + tag);
     }
@@ -262,7 +259,7 @@
         dlgMeta.textContent+"\n\n"+
         '案件類型：\n'+ (dlgType.textContent||'') +"\n\n"+
         '處理過程：\n'+ $$('#dlg-process li').map(li=> '・'+li.textContent).join('\n') +"\n\n"+
-        '判決結果：\n'+ (dlgResult.textContent||'');
+        '判決結果：\n'+ (dlgResult.textContent||'').replace(/閱讀完整案例頁面.*$/,'');
       navigator.clipboard.writeText(text).then(()=>{
         copyBtn.textContent = '已複製';
         setTimeout(()=> copyBtn.textContent='複製案例摘要', 1600);
@@ -282,10 +279,7 @@
       }
     }
 
-    
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // 啟動
     initFromURL();
   </script>
 </body>
