@@ -48,22 +48,6 @@
 
     footer{ background:var(--ink); color:#fff; text-align:center; padding:1rem; margin-top:2rem }
 
-    /* 對話框 */
-    dialog{ width:min(860px, 92vw); border:none; border-radius:16px; padding:0; box-shadow:0 10px 40px rgba(0,0,0,.28) }
-    .dlg-head{ background:var(--ink); color:#fff; padding:1rem 1.2rem; display:flex; align-items:center; justify-content:space-between }
-    .dlg-title{ margin:0; font-weight:900 }
-    .dlg-body{ background:#fff; padding:1rem 1.2rem }
-    .sec{ background:#fafcff; border:1px solid #e3eaf5; border-radius:12px; padding:1rem; margin:.75rem 0 }
-    .sec h4{ margin:.1rem 0 .5rem; color:#2b3f77 }
-    .close{ background:#fff; color:#2f3b55; border:1px solid #cfd9ea; border-radius:10px; padding:.4rem .8rem; font-weight:800; cursor:pointer }
-    .copy{ background:#2f3b55; color:#fff; border:none; border-radius:10px; padding:.4rem .8rem; font-weight:800; cursor:pointer }
-    .dlg-foot{ display:flex; gap:.5rem; justify-content:flex-end; padding:0 1.2rem 1.2rem }
-    .muted{ color:#667; font-size:.92rem }
-
-    /* 退場樣式 */
-    .backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none }
-    .backdrop.show{ display:block }
-
     /* 右上角金色「預約諮詢」浮動按鈕 */
     .consult-button{
       position:fixed; top:20px; right:20px;
@@ -102,39 +86,12 @@
     <section id="list" class="grid" aria-live="polite"></section>
   </main>
 
-  <div class="backdrop" id="backdrop"></div>
-  <dialog id="dlg">
-    <div class="dlg-head">
-      <h3 class="dlg-title" id="dlg-title">案件標題</h3>
-      <button class="close" id="dlg-close" type="button">關閉</button>
-    </div>
-    <div class="dlg-body">
-      <div class="meta muted" id="dlg-meta"></div>
-      <div class="sec">
-        <h4>案件類型</h4>
-        <div id="dlg-type"></div>
-      </div>
-      <div class="sec">
-        <h4>處理過程</h4>
-        <div id="dlg-process"></div>
-      </div>
-      <div class="sec">
-        <h4>判決結果</h4>
-        <div id="dlg-result"></div>
-      </div>
-    </div>
-    <div class="dlg-foot">
-      <button class="copy" id="copy" type="button">複製案例摘要</button>
-      <button class="close" id="dlg-close2" type="button">關閉</button>
-    </div>
-  </dialog>
-
   <footer>
     <p>© <span id="y"></span> 安心法律網</p>
   </footer>
 
   <script>
-    /* === 成功案例資料 === */
+    /* === 成功案例資料（把單一頁路徑放在 url）=== */
     const CASES = [
       {
         id: 'case-2025-support-exemption',
@@ -143,15 +100,8 @@
         region: '某地方法院',
         tags: ['家事'],
         type: '免除扶養義務',
-        process: [
-          '父親起訴請求子女定期給付扶養費。',
-          'A小姐主張父親自幼離家，生活費學費皆由祖父母負擔。',
-          '律師建議於本案內提出反聲請免除扶養義務。',
-          '開庭時父親否認；律師申請傳喚證人作證。',
-          '法院採信證人證詞與相關事證。'
-        ],
         result: '法院判決 A 小姐免除對父親之扶養義務（勝訴）。',
-        url: './免除扶養義務.html'
+        url: './免除扶養義務.html'   // ← 直接連到單一案例頁（相對於 cases/index.html）
       }
     ];
 
@@ -159,9 +109,6 @@
     const TAGS = ['全部','家事','監護／探視','剩餘財產','公寓大廈','不動產','民事','刑事'];
     const $ = (s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
     const listEl = $('#list'), chipsEl = $('#chips'), qEl = $('#q');
-    const dlg = $('#dlg'), dlgTitle = $('#dlg-title'), dlgMeta = $('#dlg-meta');
-    const dlgType = $('#dlg-type'), dlgProcess = $('#dlg-process'), dlgResult = $('#dlg-result');
-    const closeBtns = [$('#dlg-close'), $('#dlg-close2')], copyBtn = $('#copy'), backdrop = $('#backdrop');
 
     const qs = new URLSearchParams(location.search);
     let activeTag = qs.get('tag') || '全部';
@@ -173,16 +120,20 @@
         const b = document.createElement('button');
         b.className = 'chip'; b.type = 'button'; b.textContent = tag;
         b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
-        b.addEventListener('click',()=>{ activeTag = tag; render(); history.replaceState(null,'',tag==='全部'?location.pathname:`?tag=${encodeURIComponent(tag)}`) });
+        b.addEventListener('click',()=>{
+          activeTag = tag; render();
+          history.replaceState(null,'', tag==='全部' ? location.pathname : `?tag=${encodeURIComponent(tag)}`);
+        });
         chipsEl.appendChild(b);
       });
     }
 
     function formatDate(iso){
-      const d = new Date(iso); const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const day=String(d.getDate()).padStart(2,'0');
-      return `${y}-${m}-${day}`;
+      const d = new Date(iso);
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
 
+    /* 卡片模板：把「查看內容」改成 <a href="${c.url}">，不再開彈窗 */
     function template(c){
       const tag = c.tags?.[0] || '案例';
       return `
@@ -191,8 +142,8 @@
         <div class="body">
           <div class="meta"><span>${formatDate(c.date)}</span>${c.region?`<span>｜${c.region}</span>`:''}${tag?`<span class="tag">${tag}</span>`:''}</div>
           <h3 class="title">${c.title}</h3>
-          <p class="excerpt">${c.type}</p>
-          <button class="btn" data-id="${c.id}">查看內容</button>
+          <p class="excerpt">${c.type || ''}</p>
+          <a class="btn" href="${c.url}">閱讀完整案例</a>
         </div>
       </article>`;
     }
@@ -209,57 +160,15 @@
       renderChips();
       const data = filterData();
       listEl.innerHTML = data.map(template).join('');
-      $$('.btn', listEl).forEach(btn=> btn.addEventListener('click',()=> openCase(btn.dataset.id)));
     }
-
-    function openCase(id){
-      const c = CASES.find(x=>x.id===id);
-      if (!c) return;
-      dlgTitle.textContent = c.title;
-      dlgMeta.textContent = `${formatDate(c.date)}${c.region?`｜${c.region}`:''}｜${(c.tags||[]).join(' / ')}`;
-      dlgType.textContent = c.type;
-      dlgProcess.innerHTML = `<ol>${(c.process||[]).map(p=>`<li>${p}</li>`).join('')}</ol>`;
-      dlgResult.innerHTML = (c.result||'') + (c.url ? `<p style="margin-top:.6rem"><a href="${c.url}">閱讀完整案例頁面</a></p>` : '');
-
-      if (typeof dlg.showModal === 'function') dlg.showModal();
-      else { dlg.setAttribute('open',''); backdrop.classList.add('show'); }
-      history.replaceState(null,'',`?id=${encodeURIComponent(id)}`);
-    }
-
-    function closeDlg(){
-      if (dlg.open && typeof dlg.close === 'function') dlg.close();
-      dlg.removeAttribute('open'); backdrop.classList.remove('show');
-      const tag = activeTag && activeTag!=='全部' ? `?tag=${encodeURIComponent(activeTag)}` : '';
-      history.replaceState(null,'', location.pathname + tag);
-    }
-
-    closeBtns.forEach(b=> b.addEventListener('click', closeDlg));
-    backdrop.addEventListener('click', closeDlg);
-    document.addEventListener('keydown', (e)=>{ if (e.key==='Escape') closeDlg(); });
-
-    copyBtn.addEventListener('click', ()=>{
-      const text = `【${dlgTitle.textContent}】\n`+
-        dlgMeta.textContent+"\n\n"+
-        '案件類型：\n'+ (dlgType.textContent||'') +"\n\n"+
-        '處理過程：\n'+ $$('#dlg-process li').map(li=> '・'+li.textContent).join('\n') +"\n\n"+
-        '判決結果：\n'+ (dlgResult.textContent||'').replace(/閱讀完整案例頁面.*$/,'');
-      navigator.clipboard.writeText(text).then(()=>{
-        copyBtn.textContent = '已複製';
-        setTimeout(()=> copyBtn.textContent='複製案例摘要', 1600);
-      });
-    });
 
     /* 啟動 */
     document.getElementById('y').textContent = new Date().getFullYear();
-    (function initFromURL(){
-      const params = new URLSearchParams(location.search);
-      const id = params.get('id'); const tag = params.get('tag');
-      if (tag) activeTag = TAGS.includes(tag)? tag : '全部';
-      render();
-      if (id && CASES.find(x=>x.id===id)) openCase(id);
-    })();
+    if (!TAGS.includes(activeTag)) activeTag = '全部';
+    render();
   </script>
 </body>
 </html>
+
 
 
