@@ -1,3 +1,4 @@
 User-agent: *
-Allow: /
-Sitemap: https://你的網域或GitHub Pages網址/law/sitemap.xml
+Disallow:
+
+Sitemap: https://annielawarticles.github.io/law/sitemap.xml
