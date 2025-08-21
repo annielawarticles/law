@@ -64,6 +64,21 @@
     /* 針對沒有 <dialog> 支援的瀏覽器退場樣式 */
     .backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none }
     .backdrop.show{ display:block }
+
+    /* === 只新增：右上角金色「預約諮詢」浮動按鈕 === */
+    .consult-button{
+      position:fixed; top:20px; right:20px;
+      background:#cfa75d; /* 金色 */
+      color:#fff;
+      padding:10px 16px;
+      border-radius:30px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 4px 10px rgba(0,0,0,.15);
+      transition:opacity .2s;
+      z-index:1001;
+    }
+    .consult-button:hover{ opacity:.9; }
   </style>
 </head>
 <body>
@@ -78,6 +93,10 @@
     <a href="./index.html" aria-current="page">成功案例</a>
     <a href="../consult.html">開始諮詢</a>
   </nav>
+
+  <!-- 只新增：浮動金色按鈕 -->
+  <a href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
+     class="consult-button" target="_blank" rel="noopener">預約諮詢</a>
 
   <main class="wrap">
     </section>
@@ -118,7 +137,7 @@
   </dialog>
 
   <footer>
-    <p>© <span id="y"></span> 安心說法律</p>
+    <p>© <span id="y"></span> 安心法律網</p>
   </footer>
 
   <script>
@@ -157,7 +176,7 @@
     const dlgResult = $('#dlg-result');
     const closeBtns = [$('#dlg-close'), $('#dlg-close2')];
     const copyBtn = $('#copy');
-    const backdrop = $('#backdrop');
+    const backdrop = $('#backdrop']);
 
     const qs = new URLSearchParams(location.search);
     let activeTag = qs.get('tag') || '全部';
@@ -271,3 +290,4 @@
   </script>
 </body>
 </html>
+
