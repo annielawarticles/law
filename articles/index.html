@@ -6,200 +6,99 @@
   <title>法律專欄｜安心法律網</title>
   <style>
     :root{
-      --ink:#2f3b55; 
-      --ink-2:#3e4a68; 
-      --bg:#fff9f0; 
-      --card:#ffffff; 
-      --muted:#eef3f8; 
-      --chip:#e6edf6; 
+      --ink:#2f3b55;
+      --ink-2:#3e4a68;
+      --bg:#fff9f0;
+      --card:#ffffff;
+      --muted:#eef3f8;
+      --chip:#e6edf6;
       --accent:#d4af37; /* 金色 */
     }
     *{ box-sizing:border-box; }
-    body{ 
-      margin:0; 
-      font-family:"Microsoft JhengHei","Noto Sans TC",system-ui; 
-      background:var(--bg); 
-      color:#333; 
+    body{
+      margin:0;
+      font-family:"Microsoft JhengHei","Noto Sans TC",system-ui;
+      background:var(--bg);
+      color:#333;
     }
 
-    header{ 
-      background:var(--ink); 
-      color:#fff; 
-      text-align:center; 
-      padding:1.5rem 1rem; 
-      position:relative; 
+    header{
+      background:var(--ink);
+      color:#fff;
+      text-align:center;
+      padding:1.5rem 1rem;
+      position:relative;
     }
     header h1{ margin:0; font-size:2rem; font-weight:800; }
     header p{ margin:.25rem 0 0; opacity:.9; }
 
-    /* 預約諮詢按鈕（金色） */
+    /* 右上角金色預約按鈕 */
     .consult-btn{
-      position:absolute;
-      right:1rem;
-      top:1rem;
-      background:var(--accent);
-      color:#fff;
-      padding:.55rem 1rem;
-      border-radius:999px;
-      text-decoration:none;
-      font-weight:800;
-      font-size:.95rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.15);
-      transition:all .2s ease;
+      position:absolute; right:1rem; top:1rem;
+      background:var(--accent); color:#fff;
+      padding:.55rem 1rem; border-radius:999px;
+      text-decoration:none; font-weight:800; font-size:.95rem;
+      box-shadow:0 2px 6px rgba(0,0,0,.15); transition:all .2s;
     }
-    .consult-btn:hover{ 
-      filter:brightness(1.05); 
-      transform:translateY(-1px);
-    }
+    .consult-btn:hover{ filter:brightness(1.05); transform:translateY(-1px); }
 
-    nav{ 
-      background:var(--ink-2); 
-      text-align:center; 
-      padding:.75rem 1rem; 
-      position:sticky; 
-      top:0; 
-      z-index:10; 
+    nav{
+      background:var(--ink-2); text-align:center; padding:.75rem 1rem;
+      position:sticky; top:0; z-index:10;
     }
-    nav a{ 
-      color:#fff; 
-      text-decoration:none; 
-      font-weight:700; 
-      margin:0 .9rem; 
-    }
+    nav a{ color:#fff; text-decoration:none; font-weight:700; margin:0 .9rem; }
     nav a:hover{ opacity:.85; }
 
-    .wrap{ 
-      max-width:1040px; 
-      margin:1.25rem auto 2rem; 
-      padding:0 1rem; 
-    }
+    .wrap{ max-width:1040px; margin:1.25rem auto 2rem; padding:0 1rem; }
 
-    /* 工具列：搜尋 + 分類 chips */
-    .toolbar{ 
-      display:flex; 
-      flex-wrap:wrap; 
-      gap:.75rem; 
-      align-items:center; 
-      margin-bottom:1rem; 
-    }
+    /* 工具列：搜尋 + chips */
+    .toolbar{ display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1rem; }
     .search{ flex:1 1 220px; display:flex; }
-    .search input{ 
-      width:100%; 
-      padding:.65rem .9rem; 
-      border-radius:10px; 
-      border:1px solid #d4dbe6; 
-      outline:none; 
+    .search input{
+      width:100%; padding:.65rem .9rem; border-radius:10px;
+      border:1px solid #d4dbe6; outline:none;
     }
-
     .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
-    .chip{ 
-      background:var(--chip); 
-      color:#223; 
-      border:1px solid #cfe0f4; 
-      padding:.4rem .7rem; 
-      border-radius:999px; 
-      cursor:pointer; 
-      font-size:.92rem; 
-      font-weight:700; 
+    .chip{
+      background:var(--chip); color:#223; border:1px solid #cfe0f4;
+      padding:.4rem .7rem; border-radius:999px; cursor:pointer;
+      font-size:.92rem; font-weight:700;
     }
-    .chip[aria-pressed="true"]{ 
-      background:#2f3b55; 
-      color:#fff; 
-      border-color:#2f3b55; 
-    }
+    .chip[aria-pressed="true"]{ background:#2f3b55; color:#fff; border-color:#2f3b55; }
 
-    /* 文章格狀卡片 */
-    .grid{ 
-      display:grid; 
-      grid-template-columns:1fr; 
-      gap:1rem; 
-    }
+    /* 文章卡 */
+    .grid{ display:grid; grid-template-columns:1fr; gap:1rem; }
     @media (min-width:680px){ .grid{ grid-template-columns:1fr 1fr; } }
     @media (min-width:1040px){ .grid{ grid-template-columns:1fr 1fr 1fr; } }
 
-    .card{ 
-      background:var(--card); 
-      border-radius:14px; 
-      overflow:hidden; 
-      box-shadow:0 2px 10px rgba(0,0,0,.06); 
-      display:flex; 
-      flex-direction:column; 
+    .card{
+      background:var(--card); border-radius:14px; overflow:hidden;
+      box-shadow:0 2px 10px rgba(0,0,0,.06); display:flex; flex-direction:column;
     }
-    .thumb{ 
-      aspect-ratio:16/9; 
-      background:linear-gradient(135deg,#cdd9ea,#e9f0fb); 
-      display:flex; 
-      align-items:center; 
-      justify-content:center; 
-      font-weight:800; 
-      letter-spacing:.02em; 
-      color:#2f3b55; 
+    .thumb{
+      aspect-ratio:16/9; background:linear-gradient(135deg,#cdd9ea,#e9f0fb);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; letter-spacing:.02em; color:#2f3b55;
     }
-    .thumb img{ 
-      width:100%; 
-      height:100%; 
-      object-fit:cover; 
-      display:block; 
-    }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
     .body{ padding:1rem 1rem 1.1rem; }
-    .meta{ 
-      font-size:.85rem; 
-      color:#445; 
-      opacity:.8; 
-      display:flex; 
-      gap:.5rem; 
-      align-items:center; 
-      margin-bottom:.35rem; 
+    .meta{
+      font-size:.85rem; color:#445; opacity:.8; display:flex; gap:.5rem;
+      align-items:center; margin-bottom:.35rem;
     }
-    .meta .tag{ 
-      background:#eef3ff; 
-      border:1px solid #d9e5ff; 
-      color:#2b3f77; 
-      border-radius:6px; 
-      padding:.12rem .4rem; 
-      font-weight:700; 
-    }
-    .title{ 
-      font-weight:900; 
-      color:#1d2b3e; 
-      line-height:1.35; 
-      margin:.2rem 0 .55rem; 
-      font-size:1.03rem; 
-    }
+    .meta .tag{ background:#eef3ff; border:1px solid #d9e5ff; color:#2b3f77;
+      border-radius:6px; padding:.12rem .4rem; font-weight:700; }
+    .title{ font-weight:900; color:#1d2b3e; line-height:1.35; margin:.2rem 0 .55rem; font-size:1.03rem; }
     .excerpt{ margin:0 0 .75rem; color:#2a2a2a; }
     .read{ margin-top:auto; }
-    .btn{ 
-      display:inline-flex; 
-      align-items:center; 
-      gap:.45rem; 
-      background:#2f3b55; 
-      color:#fff; 
-      text-decoration:none; 
-      padding:.5rem .8rem; 
-      border-radius:10px; 
-      font-weight:800; 
+    .btn{
+      display:inline-flex; align-items:center; gap:.45rem;
+      background:#2f3b55; color:#fff; text-decoration:none;
+      padding:.5rem .8rem; border-radius:10px; font-weight:800;
     }
     .btn:hover{ filter:brightness(.95); }
 
-    /* 更多按鈕 */
-    .more-wrap{ text-align:center; margin-top:1.2rem; }
-    .more{ 
-      background:#2f3b55; 
-      color:#fff; 
-      border:none; 
-      padding:.7rem 1.2rem; 
-      border-radius:999px; 
-      font-weight:900; 
-      cursor:pointer; 
-    }
-
-    footer{ 
-      background:var(--ink); 
-      color:#fff; 
-      text-align:center; 
-      padding:1rem; 
-      margin-top:2rem; 
-    }
+    footer{ background:var(--ink); color:#fff; text-align:center; padding:1rem; margin-top:2rem; }
   </style>
 </head>
 <body>
@@ -225,16 +124,14 @@
     </div>
 
     <section id="list" class="grid" aria-live="polite"></section>
-    <div class="more-wrap">
-      <button id="more" class="more">看更多</button>
-    </div>
   </main>
 
   <footer>
-  
+    <p>© <span id="y"></span> 安心法律網</p>
   </footer>
 
   <script>
+    // ===== 文章資料 =====
     const ARTICLES = [
       { title:"如何離婚？離婚流程及必知權益？", url:"article1.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"離婚程序可分協議、調解與裁判三種；快速掌握流程與文件要點。", img:null },
       { title:"監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？", url:"article2.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"面對監護與探視權糾紛，整理法院考量重點與臨時處分策略。", img:null },
@@ -243,35 +140,39 @@
       { title:"樓上鄰居漏水惱人，法律應對策略大公開", url:"article5.html", date:"2025-04-21", tags:["公寓大廈","民事法律"], excerpt:"從報修到訴訟，完整教學漏水糾紛的蒐證與求償流程。", img:null },
     ];
 
+    // ===== 分類 chips =====
     const TAGS = ["全部","婚姻相關","財產分配","遺囑繼承","不動產","公寓大廈","證據蒐證","車禍相關","民事法律","刑事法律"];
 
-    const $ = (s,el=document)=>el.querySelector(s); 
-    const listEl = $('#list'); 
-    const moreBtn = $('#more'); 
-    const qEl = $('#q'); 
+    // ===== DOM 快取 =====
+    const $ = (s,el=document)=>el.querySelector(s);
+    const listEl = $('#list');
+    const qEl = $('#q');
     const chipsEl = $('#chips');
 
+    // ===== 狀態 =====
     const qs = new URLSearchParams(location.search);
     let activeTag = qs.get('tag') || '全部';
-    let page = 1; 
-    const pageSize = 6;
 
+    // ===== UI =====
     function renderChips(){
       chipsEl.innerHTML = '';
       TAGS.forEach(tag=>{
         const b = document.createElement('button');
-        b.className = 'chip'; 
+        b.className = 'chip';
         b.type = 'button';
         b.textContent = tag;
         b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
-        b.addEventListener('click',()=>{ activeTag = tag; page = 1; render(); });
+        b.addEventListener('click',()=>{
+          activeTag = tag;
+          renderList(); // 直接重畫列表
+        });
         chipsEl.appendChild(b);
       });
     }
 
-    function formatDate(iso){ 
-      const d = new Date(iso); 
-      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; 
+    function formatDate(iso){
+      const d = new Date(iso);
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
 
     function template(a){
@@ -285,31 +186,30 @@
             <p class="excerpt">${a.excerpt||''}</p>
             <div class="read"><a class="btn" href="${a.url}">閱讀全文</a></div>
           </div>
-        </article>`
+        </article>`;
     }
 
-    function filterData(){
+    function getFilteredData(){
       const kw = qEl.value.trim();
       let data = ARTICLES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
-      if (activeTag && activeTag!== '全部') data = data.filter(a=> (a.tags||[]).includes(activeTag));
+      if (activeTag && activeTag!=='全部') data = data.filter(a=> (a.tags||[]).includes(activeTag));
       if (kw) data = data.filter(a=> a.title.includes(kw) || a.excerpt?.includes(kw));
       return data;
     }
 
-    function render(){
+    // 直接顯示「全部文章」，不分頁、不看更多
+    function renderList(){
       renderChips();
-      const data = filterData();
-      const slice = data.slice(0, page*pageSize);
-      listEl.innerHTML = slice.map(template).join('');
-      moreBtn.style.display = (slice.length < data.length) ? 'inline-block' : 'none';
+      const data = getFilteredData();
+      listEl.innerHTML = data.map(template).join('');
     }
 
-    qEl.addEventListener('input', ()=>{ page=1; render(); });
-    moreBtn.addEventListener('click', ()=>{ page++; render(); });
+    qEl.addEventListener('input', renderList);
 
     document.getElementById('y').textContent = new Date().getFullYear();
     if (!TAGS.includes(activeTag)) activeTag = '全部';
-    render();
+    renderList();
   </script>
 </body>
 </html>
+
