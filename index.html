@@ -31,7 +31,7 @@
 
     footer{background:#1e2a38;color:#fff;text-align:center;padding:1rem;font-size:.9rem;}
 
-    /* 右上角「開始諮詢」浮動按鈕（純連結，不彈窗） */
+    /* 右上角「開始諮詢」浮動按鈕 */
     .consult-button{
       position:fixed;top:20px;right:20px;background:#111827;color:#fff;padding:10px 16px;border-radius:30px;
       text-decoration:none;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.15);transition:opacity .2s;z-index:1001;
@@ -53,13 +53,12 @@
     <a href="index.html">首頁</a>
     <a href="articles/index.html">法律專欄</a>
     <a href="cases/index.html">成功案例</a>
-    <!-- 直接開 Google 表單（新分頁） -->
     <a href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
        target="_blank" rel="noopener">開始諮詢</a>
   </nav>
 
   <div class="container">
-    <h2>歡迎來到安心法律網</h2>
+    <h2>安心法律網，專業與信任</h2>
     <p>我們致力於用清晰、易懂的方式分享專業法律知識，協助您安心面對各種法律問題。</p>
     <ul>
       <li>線上提供初步法律諮詢（點擊右上角「預約諮詢」）。</li>
@@ -71,15 +70,13 @@
   </div>
 
   <footer>
-    <p>© <span id="y"></span> </p>
+    <p>© <span id="y"></span> 安心法律網</p>
   </footer>
 
-  <!-- 右上角浮動按鈕（同樣直接開表單新分頁） -->
   <a href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
      class="consult-button" target="_blank" rel="noopener">預約諮詢</a>
 
   <script>
-    //
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
