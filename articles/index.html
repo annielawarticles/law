@@ -11,9 +11,24 @@
     *{box-sizing:border-box}
     body{ margin:0; font-family:"Microsoft JhengHei","Noto Sans TC",system-ui; background:var(--bg); color:#333 }
 
-    header{ background:var(--ink); color:#fff; text-align:center; padding:1.5rem 1rem }
+    header{ background:var(--ink); color:#fff; text-align:center; padding:1.5rem 1rem; position:relative }
     header h1{ margin:0; font-size:2rem; font-weight:800 }
     header p{ margin:.25rem 0 0; opacity:.9 }
+
+    /* 預約諮詢按鈕 */
+    .consult-btn{
+      position:absolute;
+      right:1rem;
+      top:1rem;
+      background:#00b900;
+      color:#fff;
+      padding:.55rem 1rem;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+      font-size:.95rem;
+    }
+    .consult-btn:hover{ filter:brightness(.95) }
 
     nav{ background:var(--ink-2); text-align:center; padding:.75rem 1rem; position:sticky; top:0; z-index:10 }
     nav a{ color:#fff; text-decoration:none; font-weight:700; margin:0 .9rem }
@@ -58,9 +73,9 @@
   <header>
     <h1>安心法律網</h1>
     <p>分享法律觀點，讓你了解法律的世界</p>
+    <a href="../consult.html" class="consult-btn">預約諮詢</a>
   </header>
 
-  <!-- 注意：相對路徑，對 project pages 安全 -->
   <nav>
     <a href="../index.html">首頁</a>
     <a href="./index.html" aria-current="page">法律專欄</a>
@@ -73,9 +88,7 @@
       <div class="search">
         <input id="q" type="search" placeholder="搜尋文章關鍵字…（例如：監護、漏水、存證信函）" />
       </div>
-      <div class="chips" id="chips">
-        <!-- 動態 chips：全部、婚姻相關、財產分配、遺囑繼承、不動產、公寓大廈、證據蒐證、車禍相關、民事法律、刑事法律 -->
-      </div>
+      <div class="chips" id="chips"></div>
     </div>
 
     <section id="list" class="grid" aria-live="polite"></section>
@@ -85,78 +98,32 @@
   </main>
 
   <footer>
-    <p>© <span id="y"></span> 安心說法律</p>
+    <p>© <span id="y"></span> 安心法律網</p>
   </footer>
 
   <script>
-    // ===== 資料：可自行增刪 =====
     const ARTICLES = [
-      {
-        title:"如何離婚？離婚流程及必知權益？",
-        url:"article1.html",
-        date:"2025-04-21",
-        tags:["婚姻相關"],
-        excerpt:"離婚程序可分協議、調解與裁判三種；快速掌握流程與文件要點。",
-        img:null
-      },
-      {
-        title:"監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？",
-        url:"article2.html",
-        date:"2025-04-21",
-        tags:["婚姻相關"],
-        excerpt:"面對監護與探視權糾紛，整理法院考量重點與臨時處分策略。",
-        img:null
-      },
-      {
-        title:"收到存證信函怎麼辦？",
-        url:"article3.html",
-        date:"2025-04-21",
-        tags:["民事法律"],
-        excerpt:"拆解存證信函的效力與回應步驟，避免踩雷。",
-        img:null
-      },
-      {
-        title:"如何斷絕親子關係，法律跟你想的不一樣",
-        url:"article4.html",
-        date:"2025-04-21",
-        tags:["婚姻相關"],
-        excerpt:"從民法觀點澄清『斷絕親子關係』的迷思與實務。",
-        img:null
-      },
-      {
-        title:"樓上鄰居漏水惱人，法律應對策略大公開",
-        url:"article5.html",
-        date:"2025-04-21",
-        tags:["公寓大廈","民事法律"],
-        excerpt:"從報修到訴訟，完整教學漏水糾紛的蒐證與求償流程。",
-        img:null
-      },
+      { title:"如何離婚？離婚流程及必知權益？", url:"article1.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"離婚程序可分協議、調解與裁判三種；快速掌握流程與文件要點。", img:null },
+      { title:"監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？", url:"article2.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"面對監護與探視權糾紛，整理法院考量重點與臨時處分策略。", img:null },
+      { title:"收到存證信函怎麼辦？", url:"article3.html", date:"2025-04-21", tags:["民事法律"], excerpt:"拆解存證信函的效力與回應步驟，避免踩雷。", img:null },
+      { title:"如何斷絕親子關係，法律跟你想的不一樣", url:"article4.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"從民法觀點澄清『斷絕親子關係』的迷思與實務。", img:null },
+      { title:"樓上鄰居漏水惱人，法律應對策略大公開", url:"article5.html", date:"2025-04-21", tags:["公寓大廈","民事法律"], excerpt:"從報修到訴訟，完整教學漏水糾紛的蒐證與求償流程。", img:null },
     ];
 
-    // ===== 參數：分類順序（會生成 chips） =====
-    const TAGS = [
-      "全部","婚姻相關","財產分配","遺囑繼承","不動產","公寓大廈","證據蒐證","車禍相關","民事法律","刑事法律",
-    ];
+    const TAGS = ["全部","婚姻相關","財產分配","遺囑繼承","不動產","公寓大廈","證據蒐證","車禍相關","民事法律","刑事法律"];
 
-    // ===== 工具 =====
-    const $ = (s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
-    const listEl = $('#list');
-    const moreBtn = $('#more');
-    const qEl = $('#q');
-    const chipsEl = $('#chips');
+    const $ = (s,el=document)=>el.querySelector(s); 
+    const listEl = $('#list'); const moreBtn = $('#more'); const qEl = $('#q'); const chipsEl = $('#chips');
 
     const qs = new URLSearchParams(location.search);
     let activeTag = qs.get('tag') || '全部';
-    let page = 1; // 第幾頁
-    const pageSize = 6; // 一次顯示幾篇
+    let page = 1; const pageSize = 6;
 
-    // 生成 chips
     function renderChips(){
       chipsEl.innerHTML = '';
       TAGS.forEach(tag=>{
         const b = document.createElement('button');
-        b.className = 'chip';
-        b.type = 'button';
+        b.className = 'chip'; b.type = 'button';
         b.textContent = tag;
         b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
         b.addEventListener('click',()=>{ activeTag = tag; page = 1; render(); });
@@ -164,13 +131,7 @@
       });
     }
 
-    function formatDate(iso){
-      const d = new Date(iso);
-      const y = d.getFullYear();
-      const m = String(d.getMonth()+1).padStart(2,'0');
-      const day = String(d.getDate()).padStart(2,'0');
-      return `${y}-${m}-${day}`;
-    }
+    function formatDate(iso){ const d = new Date(iso); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
     function template(a){
       const tag = a.tags?.[0] || '';
@@ -202,17 +163,14 @@
       moreBtn.style.display = (slice.length < data.length) ? 'inline-block' : 'none';
     }
 
-    // 互動綁定
     qEl.addEventListener('input', ()=>{ page=1; render(); });
     moreBtn.addEventListener('click', ()=>{ page++; render(); });
 
-    
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // 初始化（若 URL 有 ?tag=xxx，會自動選中對應分類）
     if (!TAGS.includes(activeTag)) activeTag = '全部';
     render();
   </script>
 </body>
 </html>
+
 
