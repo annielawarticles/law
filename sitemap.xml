@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://你的網域或GitHub Pages網址/law/</loc></url>
-  <url><loc>https://你的網域或GitHub Pages網址/law/consult.html</loc></url>
-  <url><loc>https://你的網域或GitHub Pages網址/law/articles/</loc></url>
-  <url><loc>https://你的網域或GitHub Pages網址/law/cases/</loc></url>
-  <!-- 下面加每一篇文章與案例頁的完整網址 -->
-  <!-- <url><loc>https://.../law/articles/divorce-process.html</loc></url> -->
+  <url>
+    <loc>https://annielawarticles.github.io/law/</loc>
+  </url>
+  <url>
+    <loc>https://annielawarticles.github.io/law/consult.html</loc>
+  </url>
+  <url>
+    <loc>https://annielawarticles.github.io/law/articles/</loc>
+  </url>
+  <url>
+    <loc>https://annielawarticles.github.io/law/cases/</loc>
+  </url>
+
+  <!-- 每一篇文章都要單獨列出 -->
+  <url>
+    <loc>https://annielawarticles.github.io/law/articles/divorce-process.html</loc>
+  </url>
+  <url>
+    <loc>https://annielawarticles.github.io/law/articles/guardianship-actions.html</loc>
+  </url>
+  <!-- 繼續加下去，把所有文章都列出 -->
 </urlset>
