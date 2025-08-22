@@ -113,75 +113,67 @@ const CASES = [
   }
 ];
 
-    url: './監護宣告.html' // ← 檔名若不同，這裡改成你的實際檔名
-  }
-];
+/* === 參數 / 快速選取 === */
+const TAGS = ['全部','家事','監護／探視','剩餘財產','公寓大廈','不動產','民事','刑事'];
+const $ = (s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const listEl = $('#list'), chipsEl = $('#chips'), qEl = $('#q');
 
+const qs = new URLSearchParams(location.search);
+let activeTag = qs.get('tag') || '全部';
 
-    /* === 參數 / 快速選取 === */
-    const TAGS = ['全部','家事','監護／探視','剩餘財產','公寓大廈','不動產','民事','刑事'];
-    const $ = (s,el=document)=>el.querySelector(s); const $$=(s,el=document)=>[...el.querySelectorAll(s)];
-    const listEl = $('#list'), chipsEl = $('#chips'), qEl = $('#q');
+/* === UI === */
+function renderChips(){
+  chipsEl.innerHTML = '';
+  TAGS.forEach(tag=>{
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.textContent = tag;
+    b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
+    b.addEventListener('click',()=>{
+      activeTag = tag; render();
+      history.replaceState(null,'', tag==='全部' ? location.pathname : `?tag=${encodeURIComponent(tag)}`);
+    });
+    chipsEl.appendChild(b);
+  });
+}
 
-    const qs = new URLSearchParams(location.search);
-    let activeTag = qs.get('tag') || '全部';
+function formatDate(iso){
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
-    /* === UI === */
-    function renderChips(){
-      chipsEl.innerHTML = '';
-      TAGS.forEach(tag=>{
-        const b = document.createElement('button');
-        b.className = 'chip'; b.type = 'button'; b.textContent = tag;
-        b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
-        b.addEventListener('click',()=>{
-          activeTag = tag; render();
-          history.replaceState(null,'', tag==='全部' ? location.pathname : `?tag=${encodeURIComponent(tag)}`);
-        });
-        chipsEl.appendChild(b);
-      });
-    }
+/* 卡片模板：把「查看內容」改成 <a href="${c.url}">，不再開彈窗 */
+function template(c){
+  const tag = c.tags?.[0] || '案例';
+  return `
+  <article class="card">
+    <div class="thumb">${tag}</div>
+    <div class="body">
+      <div class="meta"><span>${formatDate(c.date)}</span>${c.region?`<span>｜${c.region}</span>`:''}${tag?`<span class="tag">${tag}</span>`:''}</div>
+      <h3 class="title">${c.title}</h3>
+      <p class="excerpt">${c.type || ''}</p>
+      <a class="btn" href="${c.url}">閱讀全文</a>
+    </div>
+  </article>`;
+}
 
-    function formatDate(iso){
-      const d = new Date(iso);
-      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    }
+function filterData(){
+  const kw = qEl.value.trim();
+  let data = CASES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+  if (activeTag && activeTag!== '全部') data = data.filter(c=> (c.tags||[]).includes(activeTag));
+  if (kw) data = data.filter(c=> [c.title,c.type,c.region,...(c.tags||[])].some(t=> (t||'').includes(kw)) );
+  return data;
+}
 
-    /* 卡片模板：把「查看內容」改成 <a href="${c.url}">，不再開彈窗 */
-    function template(c){
-      const tag = c.tags?.[0] || '案例';
-      return `
-      <article class="card">
-        <div class="thumb">${tag}</div>
-        <div class="body">
-          <div class="meta"><span>${formatDate(c.date)}</span>${c.region?`<span>｜${c.region}</span>`:''}${tag?`<span class="tag">${tag}</span>`:''}</div>
-          <h3 class="title">${c.title}</h3>
-          <p class="excerpt">${c.type || ''}</p>
-          <a class="btn" href="${c.url}">閱讀全文</a>
-        </div>
-      </article>`;
-    }
+function render(){
+  renderChips();
+  const data = filterData();
+  listEl.innerHTML = data.map(template).join('');
+}
 
-    function filterData(){
-      const kw = qEl.value.trim();
-      let data = CASES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
-      if (activeTag && activeTag!== '全部') data = data.filter(c=> (c.tags||[]).includes(activeTag));
-      if (kw) data = data.filter(c=> [c.title,c.type,c.region,...(c.tags||[])].some(t=> (t||'').includes(kw)) );
-      return data;
-    }
-
-    function render(){
-      renderChips();
-      const data = filterData();
-      listEl.innerHTML = data.map(template).join('');
-    }
-
-    /* 啟動 */
-    document.getElementById('y').textContent = new Date().getFullYear();
-    if (!TAGS.includes(activeTag)) activeTag = '全部';
-    render();
+/* 啟動 */
+document.getElementById('y').textContent = new Date().getFullYear();
+if (!TAGS.includes(activeTag)) activeTag = '全部';
+render();
   </script>
 </body>
 </html>
-
-
-
