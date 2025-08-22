@@ -32,7 +32,7 @@
     header h1{ margin:0; font-size:2rem; font-weight:800; }
     header p{ margin:.25rem 0 0; opacity:.9; }
 
-    /* 右上角金色預約按鈕（改為直接連到 Google 表單） */
+    /* 右上角金色預約按鈕（直接連到 Google 表單） */
     .consult-btn{
       position:absolute; right:1rem; top:1rem;
       background:var(--accent); color:#fff;
@@ -56,8 +56,7 @@
     .search{ flex:1 1 220px; display:flex; }
     .search input{
       width:100%; padding:.65rem .9rem; border-radius:10px;
-      border:1px solid #d4dbe6; outline:none;
-      background:#fff;
+      border:1px solid #d4dbe6; outline:none; background:#fff;
     }
     .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
     .chip{
@@ -106,7 +105,7 @@
   <header>
     <h1>安心法律網</h1>
     <p>分享法律觀點，讓你了解法律的世界</p>
-    <!-- 改為直接連到 Google 表單（新分頁） -->
+    <!-- 直接連到 Google 表單（新分頁） -->
     <a
       href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
       class="consult-btn" target="_blank" rel="noopener noreferrer"
@@ -136,66 +135,88 @@
   </footer>
 
   <script>
-    // 依所在頁面自動決定圖片資料夾路徑（在 /articles/ 或 /cases/ 下面就要用 ../images/）
+/* ===== 圖片路徑與預設圖 ===== */
+// /articles/ 下面要用 ../images/，否則用 images/
 const IMG_BASE = /\/(articles|cases)\//.test(location.pathname) ? '../images/' : 'images/';
+const DEFAULT_FAMILY = IMG_BASE + 'family.png'; // 婚姻/親子
+const DEFAULT_HOUSE  = IMG_BASE + 'house.png';  // 公寓大廈/不動產/漏水等
+const DEFAULT_OFFICE = IMG_BASE + 'office.png'; // 民事法律
 
-// 預設圖：家庭剪影（不露臉、親子象徵）
-const DEFAULT_FAMILY = IMG_BASE + 'family.png';
+/* ===== 文章資料 ===== */
+const ARTICLES = [
+  { title:"如何離婚？離婚流程及必知權益？", url:"article1.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"離婚程序可分協議、調解與裁判三種；快速掌握流程與文件要點。", img:null },
+  { title:"監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？", url:"article2.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"面對監護與探視權糾紛，整理法院考量重點與臨時處分策略。", img:null },
+  { title:"收到存證信函怎麼辦？", url:"article3.html", date:"2025-04-21", tags:["民事法律"], excerpt:"拆解存證信函的效力與回應步驟，避免踩雷。", img:null },
+  { title:"如何斷絕親子關係，法律跟你想的不一樣", url:"article4.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"從民法觀點澄清『斷絕親子關係』的迷思與實務。", img:null },
+  { title:"樓上鄰居漏水惱人，法律應對策略大公開", url:"article5.html", date:"2025-04-21", tags:["公寓大廈","民事法律"], excerpt:"從報修到訴訟，完整教學漏水糾紛的蒐證與求償流程。", img:null },
+];
 
-    // ===== 文章資料 =====
-    const ARTICLES = [
-      { title:"如何離婚？離婚流程及必知權益？", url:"article1.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"離婚程序可分協議、調解與裁判三種；快速掌握流程與文件要點。", img:null },
-      { title:"監護權爭奪戰：對方拒絕讓你看孩子，如何迅速行動捍衛權利？", url:"article2.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"面對監護與探視權糾紛，整理法院考量重點與臨時處分策略。", img:null },
-      { title:"收到存證信函怎麼辦？", url:"article3.html", date:"2025-04-21", tags:["民事法律"], excerpt:"拆解存證信函的效力與回應步驟，避免踩雷。", img:null },
-      { title:"如何斷絕親子關係，法律跟你想的不一樣", url:"article4.html", date:"2025-04-21", tags:["婚姻相關"], excerpt:"從民法觀點澄清『斷絕親子關係』的迷思與實務。", img:null },
-      { title:"樓上鄰居漏水惱人，法律應對策略大公開", url:"article5.html", date:"2025-04-21", tags:["公寓大廈","民事法律"], excerpt:"從報修到訴訟，完整教學漏水糾紛的蒐證與求償流程。", img:null },
-    ];
+/* ===== 分類 chips ===== */
+const TAGS = ["全部","婚姻相關","財產分配","遺囑繼承","不動產","公寓大廈","證據蒐證","車禍相關","民事法律","刑事法律"];
 
-    // ===== 分類 chips =====
-    const TAGS = ["全部","婚姻相關","財產分配","遺囑繼承","不動產","公寓大廈","證據蒐證","車禍相關","民事法律","刑事法律"];
+/* ===== DOM 快取 ===== */
+const $ = (s,el=document)=>el.querySelector(s);
+const listEl = $('#list');
+const qEl = $('#q');
+const chipsEl = $('#chips');
 
-    // ===== DOM 快取 =====
-    const $ = (s,el=document)=>el.querySelector(s);
-    const listEl = $('#list');
-    const qEl = $('#q');
-    const chipsEl = $('#chips');
+/* ===== 狀態 ===== */
+const qs = new URLSearchParams(location.search);
+let activeTag = qs.get('tag') || '全部';
 
-    // ===== 狀態 =====
-    const qs = new URLSearchParams(location.search);
-    let activeTag = qs.get('tag') || '全部';
+/* ===== UI ===== */
+function renderChips(){
+  chipsEl.innerHTML = '';
+  TAGS.forEach(tag=>{
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.type = 'button';
+    b.textContent = tag;
+    b.setAttribute('aria-pressed', String(tag===activeTag));
+    b.addEventListener('click',()=>{
+      activeTag = tag;
+      renderList();
+      history.replaceState(null,'', tag==='全部' ? location.pathname : `?tag=${encodeURIComponent(tag)}`);
+    });
+    chipsEl.appendChild(b);
+  });
+}
 
-    // ===== UI =====
-    function renderChips(){
-      chipsEl.innerHTML = '';
-      TAGS.forEach(tag=>{
-        const b = document.createElement('button');
-        b.className = 'chip';
-        b.type = 'button';
-        b.textContent = tag;
-        b.setAttribute('aria-pressed', String(tag===activeTag));
-        b.addEventListener('click',()=>{
-          activeTag = tag;
-          renderList(); // 直接重畫列表
-          history.replaceState(null,'', tag==='全部' ? location.pathname : `?tag=${encodeURIComponent(tag)}`);
-        });
-        chipsEl.appendChild(b);
-      });
-    }
+function formatDate(iso){
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
-    function formatDate(iso){
-      const d = new Date(iso);
-      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    }
+/* ===== 自動配圖規則（優先：a.img → 家事 → 房屋 → 民事） ===== */
+function pickThumb(a){
+  if (a.img) return a.img;
 
- function template(a){
+  const tags = (a.tags || []).join(',');
+  const text = [a.title, a.excerpt].filter(Boolean).join('、');
+
+  const isFamily =
+    /婚姻相關/.test(tags) || /監護|親子|扶養|探視/.test(text);
+
+  const isHouse =
+    /公寓大廈|不動產/.test(tags) || /漏水|管委會|區分所有|租賃|房屋|住戶/.test(text);
+
+  const isCivil =
+    /民事法律/.test(tags) || /民事|存證信函|債務|契約/.test(text);
+
+  if (isFamily) return DEFAULT_FAMILY;
+  if (isHouse)  return DEFAULT_HOUSE;
+  if (isCivil)  return DEFAULT_OFFICE;
+  return null;
+}
+
+/* ===== 卡片模板 ===== */
+function template(a){
   const tag = a.tags?.[0] || '';
-  // 若該文章沒有自帶 img，且標籤含「婚姻相關」，就用預設圖
-  const img = a.img || ((a.tags || []).includes('婚姻相關') ? DEFAULT_FAMILY : null);
-
+  const img = pickThumb(a);
   return `
     <article class="card">
       <div class="thumb">
-        ${img ? `<img src="${img}" alt="家庭剪影">` : `${tag || '法律專欄'}`}
+        ${img ? `<img src="${img}" alt="文章封面">` : `${tag || '法律專欄'}`}
       </div>
       <div class="body">
         <div class="meta"><span>${formatDate(a.date)}</span>${tag?`<span class="tag">${tag}</span>`:''}</div>
@@ -206,31 +227,30 @@ const DEFAULT_FAMILY = IMG_BASE + 'family.png';
     </article>`;
 }
 
+/* ===== 過濾/渲染 ===== */
+function getFilteredData(){
+  const kw = qEl.value.trim();
+  let data = ARTICLES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+  if (activeTag && activeTag!=='全部') data = data.filter(a=> (a.tags||[]).includes(activeTag));
+  if (kw) data = data.filter(a=> a.title.includes(kw) || (a.excerpt||'').includes(kw));
+  return data;
+}
 
-    function getFilteredData(){
-      const kw = qEl.value.trim();
-      let data = ARTICLES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
-      if (activeTag && activeTag!=='全部') data = data.filter(a=> (a.tags||[]).includes(activeTag));
-      if (kw) data = data.filter(a=> a.title.includes(kw) || (a.excerpt||'').includes(kw));
-      return data;
-    }
+function renderList(){
+  renderChips();
+  const data = getFilteredData();
+  document.getElementById('y').textContent = new Date().getFullYear();
+  document.getElementById('y').setAttribute('aria-label', '年份');
+  listEl.innerHTML = data.length
+    ? data.map(template).join('')
+    : `<div style="grid-column:1/-1; text-align:center; padding:2rem; opacity:.8">沒有符合的文章</div>`;
+}
 
-    // 直接顯示「全部文章」
-    function renderList(){
-      renderChips();
-      const data = getFilteredData();
-      document.getElementById('y').textContent = new Date().getFullYear();
-      document.getElementById('y').setAttribute('aria-label', '年份');
-      const html = data.length
-        ? data.map(template).join('')
-        : `<div style="grid-column:1/-1; text-align:center; padding:2rem; opacity:.8">沒有符合的文章</div>`;
-      listEl.innerHTML = html;
-    }
-
-    // 啟動
-    if (!TAGS.includes(activeTag)) activeTag = '全部';
-    qEl.addEventListener('input', renderList);
-    renderList();
+/* ===== 啟動 ===== */
+if (!TAGS.includes(activeTag)) activeTag = '全部';
+qEl.addEventListener('input', renderList);
+renderList();
   </script>
 </body>
 </html>
+
