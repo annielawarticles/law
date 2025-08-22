@@ -32,7 +32,7 @@
     header h1{ margin:0; font-size:2rem; font-weight:800; }
     header p{ margin:.25rem 0 0; opacity:.9; }
 
-    /* 右上角金色預約按鈕 */
+    /* 右上角金色預約按鈕（改為直接連到 Google 表單） */
     .consult-btn{
       position:absolute; right:1rem; top:1rem;
       background:var(--accent); color:#fff;
@@ -57,6 +57,7 @@
     .search input{
       width:100%; padding:.65rem .9rem; border-radius:10px;
       border:1px solid #d4dbe6; outline:none;
+      background:#fff;
     }
     .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
     .chip{
@@ -84,7 +85,7 @@
     .body{ padding:1rem 1rem 1.1rem; }
     .meta{
       font-size:.85rem; color:#445; opacity:.8; display:flex; gap:.5rem;
-      align-items:center; margin-bottom:.35rem;
+      align-items:center; margin-bottom:.35rem; flex-wrap:wrap;
     }
     .meta .tag{ background:#eef3ff; border:1px solid #d9e5ff; color:#2b3f77;
       border-radius:6px; padding:.12rem .4rem; font-weight:700; }
@@ -105,7 +106,11 @@
   <header>
     <h1>安心法律網</h1>
     <p>分享法律觀點，讓你了解法律的世界</p>
-    <a href="../consult.html" class="consult-btn">預約諮詢</a>
+    <!-- 改為直接連到 Google 表單（新分頁） -->
+    <a
+      href="https://docs.google.com/forms/d/1iksNneNNuuFD6ZmsDJexKtz06JpAChbV_4Ko8AkWmfA/viewform"
+      class="consult-btn" target="_blank" rel="noopener noreferrer"
+    >預約諮詢</a>
   </header>
 
   <nav>
@@ -161,10 +166,11 @@
         b.className = 'chip';
         b.type = 'button';
         b.textContent = tag;
-        b.setAttribute('aria-pressed', tag===activeTag ? 'true':'false');
+        b.setAttribute('aria-pressed', String(tag===activeTag));
         b.addEventListener('click',()=>{
           activeTag = tag;
           renderList(); // 直接重畫列表
+          history.replaceState(null,'', tag==='全部' ? location.pathname : `?tag=${encodeURIComponent(tag)}`);
         });
         chipsEl.appendChild(b);
       });
@@ -193,23 +199,26 @@
       const kw = qEl.value.trim();
       let data = ARTICLES.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
       if (activeTag && activeTag!=='全部') data = data.filter(a=> (a.tags||[]).includes(activeTag));
-      if (kw) data = data.filter(a=> a.title.includes(kw) || a.excerpt?.includes(kw));
+      if (kw) data = data.filter(a=> a.title.includes(kw) || (a.excerpt||'').includes(kw));
       return data;
     }
 
-    // 直接顯示「全部文章」，不分頁、不看更多
+    // 直接顯示「全部文章」
     function renderList(){
       renderChips();
       const data = getFilteredData();
-      listEl.innerHTML = data.map(template).join('');
+      document.getElementById('y').textContent = new Date().getFullYear();
+      document.getElementById('y').setAttribute('aria-label', '年份');
+      const html = data.length
+        ? data.map(template).join('')
+        : `<div style="grid-column:1/-1; text-align:center; padding:2rem; opacity:.8">沒有符合的文章</div>`;
+      listEl.innerHTML = html;
     }
 
-    qEl.addEventListener('input', renderList);
-
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // 啟動
     if (!TAGS.includes(activeTag)) activeTag = '全部';
+    qEl.addEventListener('input', renderList);
     renderList();
   </script>
 </body>
 </html>
-
