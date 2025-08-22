@@ -93,6 +93,19 @@ const DEFAULT_OFFICE = IMG_BASE + 'office.png'; // 民事
 
 /* === 成功案例資料 === */
 const CASES = [
+  /* 新增：侵害配偶權（以民事為主、強制使用 office.png） */
+  {
+    id: 'case-2025-spousal-rights',
+    title: '侵害配偶權賠償（成功案例）',
+    date: '2025-08-23',            // ← 改為實際日期
+    tags: ['民事法律','家事'],      // ← 以民事為主，仍可被「家事」篩到
+    type: '侵害配偶權',
+    result: '法院判決被告就侵害配偶權負損害賠償責任（勝訴）。',
+    url: './侵害配偶權.html',
+    img: DEFAULT_OFFICE            // ← 強制使用 office.png
+  },
+
+  /* 既有案例 */
   {
     id: 'case-2025-support-exemption',
     title: '免除扶養義務勝訴',
@@ -111,14 +124,6 @@ const CASES = [
     result: '法院選任申請人為父母之監護人（勝訴）。',
     url: './監護宣告.html'
   }
-  {
-    id: 'case-2025-affair',
-    title: '侵害配偶權案件-成功索賠40萬元',
-    date: '2025-08-22',
-    tags: ['民事法律'],
-    type: '民事法律',
-    result: '侵害配偶權案件-成功索賠40萬元。',
-    url: './侵害配偶權.html'
 ];
 
 /* === 參數 / 快速選取 === */
@@ -164,7 +169,7 @@ function pickThumb(c){
     /公寓大廈|不動產/.test(tags) || /漏水|區分所有|管委會|公寓大廈|租賃|房屋/.test(text);
 
   const isCivil =
-    /民事|民事法律/.test(tags) || /民事/.test(text);
+    /民事法律/.test(tags) || /民事/.test(text);
 
   if (isFamily) return DEFAULT_FAMILY;
   if (isHouse)  return DEFAULT_HOUSE;
